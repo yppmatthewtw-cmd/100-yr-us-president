@@ -8,12 +8,13 @@ from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
 
 S=os.path.join(ROOT,"data")
-OUT=os.path.join(ROOT,"presidency_easyhard.xlsx")
+OUT=os.path.join(ROOT,"美國總統任期_EasyHard資金市場週期_R1.xlsx")
 pkg=json.load(open(f"{S}/package.json"))
 seg=pkg['segments']; cy=pkg['cycleyears']
 keydates=json.load(open(f"{S}/keydates.json"))
 enriched=json.load(open(f"{S}/enriched.json"))
 daily=json.load(open(f"{S}/daily.json"))
+cycle=json.load(open(f"{S}/cycle_aligned.json"))
 ENR={p['name']:p for p in enriched['presidents']}
 SYN=enriched['synthesis']
 ORDER=["Obama II","Trump I","Biden","Trump II"]
@@ -75,8 +76,110 @@ ws.column_dimensions['A'].width=16
 for col in 'BCDEF': ws.column_dimensions[col].width=26
 ws.freeze_panes="A3"
 
+
+# ============ Sheet 1: 週期階段矩陣 ============
+ws=wb.create_sheet("1.週期階段矩陣")
+title(ws,"週期階段矩陣 — 同一週期階段、不同總統的 Easy/Hard 指數(0-100)",8)
+_mat=cycle["matrix"]; _arch=cycle["archetype"]; _ph=cycle["phases"]
+_pres=[n for n in ORDER if n in _mat]
+hdr(ws,3,["週期階段","階段定義"]+[n for n in _pres]+["四任平均"],
+    widths=[18,20]+[16]*len(_pres)+[12])
+r=4
+for ph in _ph:
+    k=ph["key"]
+    ws.cell(r,1,k).font=BOLD; ws.cell(r,1).border=BORD; ws.cell(r,1).alignment=LEFT
+    ws.cell(r,2,ph["desc"]).border=BORD; ws.cell(r,2).alignment=LEFT; ws.cell(r,2).font=MUT
+    c=3
+    for n in _pres:
+        v=_mat[n].get(k)
+        if not v:
+            cell=ws.cell(r,c,"數據外"); cell.font=MUT
+        else:
+            cell=ws.cell(r,c,f"{v['avg']:.1f}  (E{v['easy']}/U{v['unc']}/H{v['hard']}% · NDX {v['ndx']:+.1f}%)")
+            cell.font=BOLD
+            zz = "E" if v['avg']>=70 else ("H" if v['avg']<=40 else "U")
+            if zfill(zz): cell.fill=zfill(zz)
+        cell.border=BORD; cell.alignment=CEN; c+=1
+    a=_arch.get(k,{})
+    av=a.get("avg")
+    cell=ws.cell(r,c, f"{av:.1f}" if av is not None else "—")
+    cell.border=BORD; cell.alignment=CEN; cell.font=BOLD
+    if av is not None:
+        zz = "E" if av>=70 else ("H" if av<=40 else "U")
+        if zfill(zz): cell.fill=zfill(zz)
+    r+=1
+r+=1
+ws.merge_cells(start_row=r,start_column=1,end_row=r+2,end_column=8)
+note=("矩陣讀出的三條規律: ① 『第2年下半』(中期選舉→第2年終)是全週期唯一的 HARD 階段——跨任平均僅 "
+      f"{_arch['第2年下 Y2 H2']['avg']}, 特朗普 I({_mat['Trump I']['第2年下 Y2 H2']['avg']}) 與 拜登({_mat['Biden']['第2年下 Y2 H2']['avg']}) 同時墜入紅區; "
+      f"② 第3年回到 EASY(跨任平均 {_arch['第3年 Year 3']['avg']}), 印證『第3年托市最強』; "
+      f"③ 交接期與第1年是全週期最寬鬆的起點({_arch['交接期 Transition']['avg']} / {_arch['第1年 Year 1']['avg']})＝蜜月期的量化證據。")
+cc=ws.cell(r,1,note); cc.alignment=LEFTT; cc.border=BORD
+ws.freeze_panes="C4"
+
+# ============ Sheet 2: 週期對齊每日 (+ native Excel line chart) ============
+from openpyxl.chart import LineChart, Reference
+ws=wb.create_sheet("2.週期對齊每日")
+title(ws,"週期對齊每日數據 — X=總統週期日(就職=0) · Y=Easy/Hard 指數 · 各任一欄, 可直接作圖比較",10)
+_ser=cycle["series"]
+_cols=["週期週(≈)","週期日"]+[f"{n} 指數" for n in _pres]+[f"{n} NDX(就職=100)" for n in _pres]
+hdr(ws,3,_cols,widths=[11,10]+[15]*len(_pres)+[19]*len(_pres))
+# forward-fill onto an integer cycle-day grid (weekly step keeps the chart readable)
+_idx={n:{p["cd"]:p for p in _ser[n]} for n in _pres}
+_rng={n:(_ser[n][0]["cd"], _ser[n][-1]["cd"]) for n in _pres}
+STEP=7
+r=4
+_last={n:None for n in _pres}
+for cd in range(-84, 1462):
+    for n in _pres:
+        if cd in _idx[n]: _last[n]=_idx[n][cd]
+    if cd % STEP: continue
+    ws.cell(r,1,round(cd/7)).alignment=CEN
+    ws.cell(r,2,cd).alignment=CEN
+    c=3
+    for n in _pres:
+        lo,hi=_rng[n]
+        v=_last[n]
+        cell=ws.cell(r,c, (v["sm"] if (v and lo<=cd<=hi) else None)); cell.alignment=CEN
+        if v and lo<=cd<=hi and zfill("E" if v["sm"]>=70 else ("H" if v["sm"]<=40 else "U")):
+            cell.fill=zfill("E" if v["sm"]>=70 else ("H" if v["sm"]<=40 else "U"))
+        c+=1
+    for n in _pres:
+        lo,hi=_rng[n]
+        v=_last[n]
+        ws.cell(r,c, (v["ix"] if (v and lo<=cd<=hi) else None)).alignment=CEN
+        c+=1
+    r+=1
+_last_row=r-1
+
+ch=LineChart(); ch.title="Easy/Hard 指數 — 四任總統於同一總統週期軸上比較"
+ch.style=2; ch.height=11; ch.width=30
+ch.y_axis.title="Easy / Hard 指數 (0-100)"; ch.x_axis.title="總統週期日 (就職日 = 0)"
+ch.y_axis.scaling.min=0; ch.y_axis.scaling.max=100
+data=Reference(ws, min_col=3, max_col=2+len(_pres), min_row=3, max_row=_last_row)
+cats=Reference(ws, min_col=2, min_row=4, max_row=_last_row)
+ch.add_data(data, titles_from_data=True); ch.set_categories(cats)
+SERCOL={"Obama II":"3987E5","Trump I":"D95926","Biden":"9085E9","Trump II":"D55181"}
+for i,n in enumerate(_pres):
+    s=ch.series[i]; s.smooth=False
+    s.graphicalProperties.line.solidFill=SERCOL[n]
+    s.graphicalProperties.line.width=22000
+ws.add_chart(ch, f"A{_last_row+3}")
+
+ch2=LineChart(); ch2.title="NDX 表現 — 四任總統於同一總統週期軸上比較 (就職日 = 100)"
+ch2.style=2; ch2.height=11; ch2.width=30
+ch2.y_axis.title="NDX 指數化 (就職日 = 100)"; ch2.x_axis.title="總統週期日 (就職日 = 0)"
+d2=Reference(ws, min_col=3+len(_pres), max_col=2+2*len(_pres), min_row=3, max_row=_last_row)
+ch2.add_data(d2, titles_from_data=True); ch2.set_categories(cats)
+for i,n in enumerate(_pres):
+    s=ch2.series[i]; s.smooth=False
+    s.graphicalProperties.line.solidFill=SERCOL[n]
+    s.graphicalProperties.line.width=22000
+ws.add_chart(ch2, f"A{_last_row+26}")
+ws.freeze_panes="C4"
+
 # ============ Sheet 1: 橫向週期比較 ============
-ws=wb.create_sheet("1.橫向週期比較")
+ws=wb.create_sheet("3.橫向週期比較")
 title(ws,"橫向總統週期比較(2016–2026 四任實證) — 資金區 × NDX表現 × 主因",8)
 hdr(ws,3,["總統","第1年 就職","第2年 中期選舉","第3年 大選前","第4年 大選","符合度","點題"],
     widths=[12,26,26,26,26,10,30])
@@ -107,7 +210,7 @@ if SYN.get('now_2026'):
 ws.freeze_panes="A4"
 
 # ============ Sheet 2: 逐任實證分段 ============
-ws=wb.create_sheet("2.逐任實證分段")
+ws=wb.create_sheet("4.逐任實證分段")
 title(ws,"逐任總統 — NDX 每日三區實證分段(平滑後制度級, 最短10交易日)",8)
 hdr(ws,3,["總統","資金區","起","訖","交易日","NDX起→訖","期內漲跌%","備註"],
     widths=[12,15,12,12,9,18,11,30])
@@ -142,7 +245,7 @@ for name in ORDER:
 ws.freeze_panes="A4"
 
 # ============ Sheet 3: 週期年度統計 ============
-ws=wb.create_sheet("3.週期年度統計")
+ws=wb.create_sheet("5.週期年度統計")
 title(ws,"總統週期年度統計(實證) vs 百年原型 — 資金區% · NDX年內回報 · 最大回撤",9)
 hdr(ws,3,["總統","週期年","日曆年","EASY%","UNC%","HARD%","NDX年內%","最大回撤%","峰→谷 / 原型對照"],
     widths=[12,16,9,9,9,9,11,11,34])
@@ -170,7 +273,7 @@ for name in ORDER:
 ws.freeze_panes="A4"
 
 # ============ Sheet 4: 重大事件 ============
-ws=wb.create_sheet("4.重大事件時間軸")
+ws=wb.create_sheet("6.重大事件時間軸")
 title(ws,"重大事件時間軸 — Fed利率 · 貨幣政策/QE · 戰爭/地緣 · 財政/關稅 · 危機/黑天鵝",6)
 hdr(ws,3,["總統","日期","類別","事件","說明","對NDX/市場影響"],widths=[11,12,13,30,44,26])
 r=4
@@ -188,7 +291,7 @@ for name in ORDER:
 ws.freeze_panes="A4"
 
 # ============ Sheet 5: 經濟五環 ============
-ws=wb.create_sheet("5.經濟五環對應")
+ws=wb.create_sheet("7.經濟五環對應")
 title(ws,"各實證分段 × 經濟五環對應 — 政治/流動性/信用/景氣/黑天鵝",8)
 hdr(ws,3,["總統","實證分段","區","驅動力","①政治環","②流動性/Fed環","③信用環","④景氣環 / ⑤黑天鵝環"],
     widths=[11,22,10,26,24,24,22,30])
@@ -210,7 +313,7 @@ for name in ORDER:
 ws.freeze_panes="A4"
 
 # ============ Sheet 6: 關鍵節點 ============
-ws=wb.create_sheet("6.關鍵節點")
+ws=wb.create_sheet("8.關鍵節點")
 title(ws,"關鍵節點定位 — 就職 · 首100日 · 中期選舉 · 大選(當時所處資金區)",5)
 hdr(ws,3,["總統","日期","關鍵節點","當時資金區","NDX"],widths=[13,13,22,16,12])
 r=4
@@ -228,7 +331,7 @@ for name in ORDER:
 ws.freeze_panes="A4"
 
 # ============ Sheet 7: 百年R1全表 ============
-ws=wb.create_sheet("7.百年R1全表")
+ws=wb.create_sheet("9.百年R1全表")
 title(ws,"百年逐屆 Easy/Hard(1925–2026, R1全表) — ★=本報告NDX實證重定義",4)
 hdr(ws,3,["總統(任期)","EASY Money 窗口","HARD Money 窗口","關鍵數據與事件"],widths=[18,40,40,40])
 r=4
@@ -245,7 +348,7 @@ for h in pkg['hist']:
 ws.freeze_panes="A4"
 
 # ============ Sheet 8: Fed政策步階 ============
-ws=wb.create_sheet("8.Fed政策步階")
+ws=wb.create_sheet("10.Fed政策步階")
 title(ws,"Fed L1 政策方向步階(公開紀錄重建) — 流動性環骨架",4)
 hdr(ws,3,["生效日","方向碼","方向","Fed 政策狀態"],widths=[14,9,10,60])
 r=4
@@ -260,7 +363,7 @@ for p in pkg['l1policy']:
 ws.freeze_panes="A4"
 
 # ============ Sheet 9: NDX每日數據 ============
-ws=wb.create_sheet("9.NDX每日數據")
+ws=wb.create_sheet("11.NDX每日數據")
 title(ws,"NDX 每日判區數據(實證輸入, 2016-07 → 2026-07)",5)
 hdr(ws,3,["日期","總統","NDX收盤","合成分","資金區"],widths=[13,12,12,10,15])
 PRES_RANGES=[("Obama II","2013-01-20","2017-01-20"),("Trump I","2017-01-20","2021-01-20"),

@@ -6,13 +6,14 @@ import json, datetime, html
 
 S = os.path.join(ROOT,"data")
 CSS = open(os.path.join(ROOT,"assets","style.css")).read()
-JS  = open(os.path.join(ROOT,"assets","engine.js")).read()
+JS  = open(os.path.join(ROOT,"assets","cycle_engine.js")).read()
 chart = json.load(open(f"{S}/chartdata.json"))
 segments = json.load(open(f"{S}/segments.json"))
 cycleyears = json.load(open(f"{S}/cycleyears.json"))
 keydates = json.load(open(f"{S}/keydates.json"))
 pkg = json.load(open(f"{S}/package.json"))
 enriched = json.load(open(f"{S}/enriched.json"))
+cycle    = json.load(open(f"{S}/cycle_aligned.json"))
 ENR = {p['name']: p for p in enriched['presidents']}
 SYN = enriched['synthesis']
 
@@ -147,17 +148,6 @@ def build_president(name):
       <div class="pres-meta">{esc(m['term'])} · {esc(m['cover'])}</div></div>
   </div>
   {build_kpi_row(name)}
-  <div class="chart-wrap">
-    <div class="chart-title">NDX 每日走勢 × 資金三區實證分段<span class="chart-hint">滑鼠移到圖上可看每日數值</span></div>
-    <div class="chart" data-pres="{esc(name)}"></div>
-    <div class="chart-legend">
-      <span class="lg"><i class="sw easy"></i>EASY 寬鬆順風</span>
-      <span class="lg"><i class="sw unc"></i>UNCERTAIN 震盪未定</span>
-      <span class="lg"><i class="sw hard"></i>HARD 緊縮熊市</span>
-      <span class="lg"><i class="sw line"></i>NDX 收盤</span>
-      <span class="lg"><i class="sw key"></i>關鍵日</span>
-    </div>
-  </div>
   <h3 class="blk">總統週期年度分解（實證 vs 百年原型）</h3>
   {build_cycleyear_strip(name)}
   <h3 class="blk">關鍵節點定位</h3>
@@ -167,6 +157,95 @@ def build_president(name):
   <h3 class="blk">各實證分段 × 經濟五環對應</h3>
   {build_rings(name)}
   {build_narrative(name)}
+</section>'''
+
+
+# ---------- unified presidency-cycle comparison ----------
+CYCOL = {"Obama II":"#3987e5","Trump I":"#d95926","Biden":"#9085e9","Trump II":"#d55181"}
+
+def build_cycle_charts():
+    ms = "".join(
+        f'<tr><td class="mono">{m["day"]:+d}</td><td>{esc(m["label"])}</td><td class="muted-td">{esc(m["note"])}</td></tr>'
+        for m in cycle["milestones"])
+    return f'''
+<section id="cycle" class="block">
+  <div class="cy-block">
+    <div class="cy-head">
+      <div>
+        <h2 class="cy-h2">★ 統一總統週期比較：所有總統放在同一條就任週期軸上</h2>
+        <p class="cy-sub">X 軸＝<b>總統週期日</b>（就職日 = 第 0 日，當選日約 −76 日，卸任 = 第 1461 日），
+        Y 軸＝<b>Easy / Hard 指數</b>（18 指標加權合成分 0–100；≥70 EASY／40–70 UNCERTAIN／≤40 HARD）。
+        每位總統一條獨立線，因此可直接看出「同一個週期位置上，各任總統的資金鬆緊有多不同」。</p>
+        <p class="cy-axis-note">＊ 點擊下方圖例可開關任一總統；線末＊表示該任期數據不完整（每日數據自 2016-07 起）。</p>
+      </div>
+      <div class="cy-controls">
+        <button class="cy-btn" id="cy-smooth" type="button">顯示：21日平滑</button>
+      </div>
+    </div>
+    <div class="cy-legend" id="cy-legend"></div>
+    <div class="cy-chart" id="cy-index"></div>
+    <div class="cy-foot">讀法：線落入紅帶（≤40）＝該總統在該週期位置處於 HARD 資金環境。
+    注意 <b>中期選舉 → 第2年終</b> 一段，特朗普 I 與拜登兩條線同時墜入紅帶——這正是百年規律「第2年最弱」的每日數據證據。</div>
+  </div>
+
+  <div class="cy-block">
+    <div class="cy-head">
+      <div>
+        <h2 class="cy-h2">同一週期軸上的市場表現：NDX（就職日 = 100）</h2>
+        <p class="cy-sub">同樣的 X 軸與同樣的顏色，改看指數本身。把上圖的「資金環境」與此圖的「市場結果」對讀，
+        可看出資金區轉換與行情轉折的先後關係。</p>
+      </div>
+    </div>
+    <div class="cy-chart" id="cy-ndx"></div>
+    <div class="cy-foot">＊ 各任以自己的就職日收盤價為 100 重新指數化，故可跨任期直接比較漲跌幅。</div>
+  </div>
+
+  <h3 class="blk">週期關鍵節點定義（共用 X 軸刻度）</h3>
+  <table class="kd"><thead><tr><th>週期日</th><th>關鍵節點</th><th>意義</th></tr></thead><tbody>{ms}</tbody></table>
+</section>'''
+
+def build_phase_matrix():
+    phases = cycle["phases"]; mat = cycle["matrix"]; arch = cycle["archetype"]
+    def cls(v):
+        if v is None: return "pm-na"
+        return "pm-E" if v>=70 else ("pm-H" if v<=40 else "pm-U")
+    head = '<tr><th class="pm-ph">週期階段</th>'
+    for n in ORDER:
+        if n not in mat: continue
+        head += (f'<th><span class="pm-pres"><i style="background:{CYCOL[n]}"></i>'
+                 f'{esc(PRES_META[n]["cn"])}</span></th>')
+    head += '<th>四任平均</th></tr>'
+    rows=""
+    for ph in phases:
+        k=ph["key"]
+        rows += f'<tr><td class="pm-ph">{esc(k)}<small>{esc(ph["desc"])}</small></td>'
+        for n in ORDER:
+            if n not in mat: continue
+            v = mat[n].get(k)
+            if not v:
+                rows += '<td class="pm-na">數據外</td>'
+            else:
+                rows += (f'<td class="{cls(v["avg"])}"><div class="pm-v">{v["avg"]:.1f}</div>'
+                         f'<div class="pm-s">E{v["easy"]}/U{v["unc"]}/H{v["hard"]}％ · NDX {v["ndx"]:+.1f}%</div></td>')
+        a = arch.get(k,{})
+        av = a.get("avg")
+        rows += (f'<td class="pm-avg"><div class="pm-v">{av:.1f}</div>'
+                 f'<div class="pm-s">{a.get("n_pres",0)} 任平均</div></td>' if av is not None
+                 else '<td class="pm-na">—</td>')
+        rows += '</tr>'
+    return f'''
+<section id="phases" class="block">
+  <h2>週期階段矩陣：同一階段、不同總統的 Easy/Hard 指數</h2>
+  <p class="muted">把連續的週期軸切成 8 個階段，每格＝該總統在該階段的平均 Easy/Hard 指數（顏色＝所屬區），
+  下方小字為該階段的三區日數佔比與 NDX 階段漲跌。最後一欄為跨總統平均＝<b>本框架的「週期原型」實證值</b>。</p>
+  <div class="pm-wrap"><table class="pm"><thead>{head}</thead><tbody>{rows}</tbody></table></div>
+  <div class="callout" style="margin-top:16px">
+    <h4>矩陣讀出的三條規律</h4>
+    <p>① <b>「第2年下半」是全週期唯一的 HARD 階段</b>——跨任平均僅 {arch["第2年下 Y2 H2"]["avg"]}，
+    特朗普 I（{mat["Trump I"]["第2年下 Y2 H2"]["avg"]}）與拜登（{mat["Biden"]["第2年下 Y2 H2"]["avg"]}）同時墜入紅區。
+    ② <b>第3年回到 EASY</b>（跨任平均 {arch["第3年 Year 3"]["avg"]}），印證「第3年托市最強」。
+    ③ <b>交接期與第1年是全週期最寬鬆的起點</b>（{arch["交接期 Transition"]["avg"]} / {arch["第1年 Year 1"]["avg"]}）＝蜜月期的量化證據。</p>
+  </div>
 </section>'''
 
 # ---------- cross-president comparison ----------
@@ -219,21 +298,21 @@ def build_policy():
 
 # ---------- assemble ----------
 GEN_DATE = "2026-07-25"
-CHART_JSON = json.dumps({"chart":chart,"segments":segments,"keydates":keydates}, separators=(',',':'), ensure_ascii=False)
+CHART_JSON = json.dumps({"cycle":cycle}, separators=(',',':'), ensure_ascii=False)
 
 pres_sections = "\n".join(build_president(n) for n in ORDER)
 
 HTML = f'''<!doctype html>
 <html lang="zh-Hant"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>美國總統任期 × EasyHard 資金市場週期（NDX 十年每日實證重定義）</title>
+<title>美國總統任期 × Easy / Hard 資金市場週期 R1</title>
 <style>{CSS}</style>
 </head><body>
 <header class="hero">
   <div class="hero-eyebrow">A-(Fable) EasyHardMoney 三區指標庫 · NDX 十年每日分段 · 2026 R4.5.3</div>
-  <h1>美國總統任期 × Easy / Hard 資金市場週期</h1>
+  <h1>美國總統任期 × Easy / Hard 資金市場週期 <span class="hero-r1">R1</span></h1>
   <div class="hero-sub">以 <b>NDX（納指100）2016-07 → 2026-07 共 2,515 個交易日</b>的三區（EASY／UNCERTAIN／HARD）實證數據，
-  重新定義各任總統「由當選到下台」的資金鬆緊週期，並對照百年總統週期原型與五個經濟環。</div>
+  重新定義各任總統「由當選到下台」的資金鬆緊週期，<b>並把所有總統疊在同一條就任週期軸上直接比較</b>，再對照百年總統週期原型與五個經濟環。</div>
   <div class="hero-strip">
     <span class="hs easy">EASY 1,757 日 · 69.9%</span>
     <span class="hs unc">UNCERTAIN 441 日 · 17.5%</span>
@@ -243,7 +322,7 @@ HTML = f'''<!doctype html>
 </header>
 
 <nav class="toc">
-  <a href="#method">方法</a><a href="#law">百年規律</a><a href="#compare">橫向比較</a>
+  <a href="#method">方法</a><a href="#cycle">★週期比較圖</a><a href="#phases">階段矩陣</a><a href="#law">百年規律</a><a href="#compare">橫向比較</a>
   <a href="#pres-ObamaII">奧巴馬II</a><a href="#pres-TrumpI">特朗普I</a><a href="#pres-Biden">拜登</a><a href="#pres-TrumpII">特朗普II</a>
   <a href="#hist">百年全表</a><a href="#policy">Fed 步階</a>
 </nav>
@@ -284,6 +363,10 @@ HTML = f'''<!doctype html>
   </div>
 </section>
 
+{build_cycle_charts()}
+
+{build_phase_matrix()}
+
 <section id="compare" class="block">
   <h2>橫向總統週期比較（2016–2026 四任實證）</h2>
   {build_comparison()}
@@ -315,7 +398,7 @@ HTML = f'''<!doctype html>
 <script>const DATA={CHART_JSON};{JS}</script>
 </body></html>'''
 
-open(os.path.join(ROOT,"presidency_easyhard.html"),"w").write(HTML)
+open(os.path.join(ROOT,"美國總統任期_EasyHard資金市場週期_R1.html"),"w").write(HTML)
 # also write to a stable scratch path
 
 print("HTML written:", len(HTML), "bytes")
