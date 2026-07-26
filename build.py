@@ -17,7 +17,7 @@ for script in ("pipeline/8_gen_html.py", "pipeline/9_gen_excel.py",
                "pipeline/8d_gen_r3_html.py",
                "pipeline/1b_extract_combined.py", "pipeline/6e_anchor_combined.py",
                "pipeline/8e_gen_r4_html.py",
-               "pipeline/6f_r5_data.py", "pipeline/8f_gen_r5_html.py", "pipeline/8g_gen_r6_html.py", "pipeline/8h_gen_r7_html.py"):
+               "pipeline/6f_r5_data.py", "pipeline/8f_gen_r5_html.py", "pipeline/8g_gen_r6_html.py", "pipeline/8h_gen_r7_html.py", "pipeline/8i_gen_r8_html.py"):
     print(f"→ running {script}")
     subprocess.run([sys.executable, os.path.join(ROOT, script)], check=True)
-print("✓ R1 + R2百年版 + R2錨定版 + R3 + R4(整合ABC) + R5 + R6 + R7 regenerated")
+print("✓ R1 + R2百年版 + R2錨定版 + R3 + R4(整合ABC) + R5 + R6 + R7 + R8 regenerated")
