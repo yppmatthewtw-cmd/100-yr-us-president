@@ -146,9 +146,15 @@ for n in ORDER:
         if d<bd: bd=d; at=p
     at_now=({"own":at["t"],"v":at["v"],"z":at["z"]} if at else None)
     tr=C["troughs"].get(n)
+    # smoothed index line for the PANE-1 overlay (5-sample centred MA ≈ 5 weeks;
+    # Tier-B step data is barely affected, Tier-A weekly sampling noise is damped)
+    raw=[p["v"] for p in pts]; line=[]
+    for i,p in enumerate(pts):
+        a=max(0,i-2); b=min(len(raw),i+3)
+        line.append({"cd":p["cd"],"v":round(sum(raw[a:b])/(b-a),1)})
     terms.append({"name":n,"cn":m["cn"],"party":m["party"],"era":m["era"],"tier":m["tier"],
                   "inaug":m["inaug"],"end":m["end"],"election":m["election"],
-                  "zones":zones,"transitions":trans,"at_now":at_now,
+                  "zones":zones,"transitions":trans,"at_now":at_now,"line":line,
                   "trough":({**tr,"anchor":ad(tr["cd"])} if tr else None)})
 
 # ---------------- anchor-axis furniture ----------------
@@ -175,10 +181,20 @@ yearbands=[
 
 master=CYC["series"].get(ANCHOR,[])   # daily {cd,t,s,sm,z,ix} for the anchor line
 
+# 26-term median at each weekly cycle-day (reference curve on PANE 1)
+def _pct(v,q):
+    if not v: return None
+    s=sorted(v); k=(len(s)-1)*q; f=int(k); c=min(f+1,len(s)-1)
+    return round(s[f]+(s[c]-s[f])*(k-f),1)
+bycd={}
+for T in terms:
+    for q in T["line"]: bycd.setdefault(q["cd"],[]).append(q["v"])
+median=[{"cd":cd,"med":_pct(v,.5),"n":len(v)} for cd,v in sorted(bycd.items()) if len(v)>=5]
+
 out={"anchor":{"name":ANCHOR,"cn":M[ANCHOR]["cn"],"inaug":AIG.isoformat(),
                "election":AEL.isoformat(),"end":AEND.isoformat(),
                "now":NOW.isoformat(),"cd_now":CD_NOW},
-     "milestones":milestones,"yearbands":yearbands,
+     "milestones":milestones,"yearbands":yearbands,"median":median,
      "master":master,"terms":terms,"step":STEP}
 json.dump(out,open(_os.path.join(_DATA,"anchor.json"),"w"),separators=(',',':'),ensure_ascii=False)
 

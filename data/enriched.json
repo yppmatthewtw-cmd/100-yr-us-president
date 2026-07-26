@@ -202,6 +202,16 @@
      "ring_blackswan": "貿易戰間歇升級但未致命"
     },
     {
+     "segment": "UNCERTAIN 2018-10-10→2018-11-09",
+     "zone": "UNCERTAIN",
+     "driver": "10月殺盤起步：Powell 10/3『距中性還很遠』+10Y債息破3.2%，中期選舉前震盪",
+     "ring_political": "★第2年中期選舉前夕：政策不確定性與選舉風險疊加",
+     "ring_liquidity": "加息路徑被重新定價為更鷹，實質利率跳升",
+     "ring_credit": "HY利差首度明顯走闊",
+     "ring_business": "盈利增速見頂訊號浮現",
+     "ring_blackswan": "中美貿易戰升級為背景壓力"
+    },
+    {
      "segment": "HARD 2018-11-12→2019-01-15",
      "zone": "HARD",
      "driver": "Powell鷹派(距中性遠)+12月仍加息+QT自動導航, 流動性壓倒一切",
@@ -220,6 +230,16 @@
      "ring_credit": "利差急收窄",
      "ring_business": "景氣軟著陸預期",
      "ring_blackswan": "無黑天鵝"
+    },
+    {
+     "segment": "UNCERTAIN 2019-05-23→2019-06-06",
+     "zone": "UNCERTAIN",
+     "driver": "貿易戰急升級：5/10 對華加徵至25%、5/30 突襲威脅墨西哥關稅，NDX 單月 -8%",
+     "ring_political": "第3年中段：政策衝擊短暫壓過托市傾向",
+     "ring_liquidity": "6/4 Powell『適當行動』承諾隨即開啟減息預期",
+     "ring_credit": "利差短暫走闊後迅速收窄",
+     "ring_business": "製造業PMI轉弱、企業資本開支觀望",
+     "ring_blackswan": "關稅突襲＝政策性黑天鵝（兩週內化解）"
     },
     {
      "segment": "EASY 2019-03-12→2019-05-22 / EASY 2019-06-07→2020-02-21",
