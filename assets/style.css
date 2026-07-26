@@ -382,3 +382,13 @@ tr:hover td{background:rgba(110,168,255,.05)}
 .p2-cur{outline:1px solid rgba(127,212,255,.45)}
 .p2-same{color:#7fd4ff;text-align:center;font-size:14px}
 .p2-tt td{padding:7px 10px}
+.std-tag{font-size:9px;font-weight:800;padding:2px 6px;border-radius:4px;white-space:nowrap;flex:none}
+.std-c{background:rgba(127,212,255,.16);color:#7fd4ff;border:1px solid rgba(127,212,255,.4)}
+.std-r{background:rgba(107,125,153,.2);color:#a7b8d0;border:1px solid #43536b}
+.warn-box{background:linear-gradient(180deg,rgba(230,178,61,.12),rgba(230,178,61,.03));
+  border:1px solid rgba(230,178,61,.45);border-left:4px solid var(--unc);border-radius:12px;padding:14px 18px;margin:14px 0}
+.warn-box h4{color:var(--unc);font-size:14.5px;margin-bottom:6px}
+.warn-box p{color:var(--ink2);font-size:13px;margin:0}
+.eng-tbl td,.eng-tbl th{text-align:center}
+.eng-tbl td:first-child,.eng-tbl th:first-child{text-align:left;font-weight:700;color:#eaf1fb}
+.eng-cur td{background:rgba(127,212,255,.1)}
