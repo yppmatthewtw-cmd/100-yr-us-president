@@ -1,0 +1,653 @@
+<!doctype html>
+<html lang="zh-Hant"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>美國總統 E/H MONEY R2 — 現任真實時間軸對標歷任（07-26_hk00.13）</title>
+<style>:root{
+  --bg:#0b111b; --bg2:#0f1826; --panel:#131f31; --panel2:#0d1626;
+  --ink:#e6ecf5; --ink2:#a7b4c8; --muted:#7d8ba3; --line:#20304a; --line2:#2b3d5c;
+  --easy:#3ecf8e; --easy-b:rgba(62,207,142,.15); --easy-d:#1f7a55;
+  --unc:#e6b23d; --unc-b:rgba(230,178,61,.15); --unc-d:#8a6a1c;
+  --hard:#f26b7f; --hard-b:rgba(242,107,127,.16); --hard-d:#9c2f42;
+  --ndx:#cfe0f5; --key:#8ea6d6; --rep:#e0708a; --dem:#5aa0e6;
+  --accent:#6ea8ff;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:linear-gradient(180deg,#0a0f18,#0b111b 320px);color:var(--ink);
+  font-family:"Segoe UI","PingFang TC","Microsoft JhengHei",-apple-system,system-ui,"Helvetica Neue",Arial,sans-serif;
+  line-height:1.62;font-size:15px;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{line-height:1.28;margin:0 0 .5em}
+b{color:#f2f6fc}
+.mono{font-variant-numeric:tabular-nums;font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace}
+.muted{color:var(--muted);font-size:13.5px}
+a{color:var(--accent);text-decoration:none}
+
+/* hero */
+.hero{max-width:1160px;margin:0 auto;padding:52px 26px 30px}
+.hero-eyebrow{color:var(--accent);letter-spacing:.14em;font-size:12px;text-transform:uppercase;font-weight:600;margin-bottom:14px}
+.hero h1{font-size:38px;font-weight:800;letter-spacing:-.01em;
+  background:linear-gradient(92deg,#eaf1fb,#9fc0f0);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-sub{color:var(--ink2);max-width:840px;font-size:16px;margin-top:12px}
+.hero-strip{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0 8px}
+.hs{padding:7px 14px;border-radius:999px;font-weight:700;font-size:13px;border:1px solid transparent}
+.hs.easy{color:var(--easy);background:var(--easy-b);border-color:var(--easy-d)}
+.hs.unc{color:var(--unc);background:var(--unc-b);border-color:var(--unc-d)}
+.hs.hard{color:var(--hard);background:var(--hard-b);border-color:var(--hard-d)}
+.hero-note{color:var(--muted);font-size:12.5px;margin-top:10px;max-width:900px}
+
+/* toc */
+.toc{position:sticky;top:0;z-index:40;background:rgba(9,14,22,.82);backdrop-filter:blur(10px);
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);display:flex;gap:4px;flex-wrap:wrap;
+  padding:9px 20px;justify-content:center}
+.toc a{color:var(--ink2);font-size:13px;padding:5px 12px;border-radius:7px;font-weight:600}
+.toc a:hover{background:var(--panel);color:#fff}
+
+/* blocks */
+.block{max-width:1160px;margin:0 auto;padding:34px 26px}
+.block h2{font-size:25px;font-weight:750;border-left:4px solid var(--accent);padding-left:12px}
+.section-lead{font-size:28px!important;text-align:center;border:0!important;padding:0!important;margin-bottom:4px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.panel h4{color:#fff;font-size:16px}
+.tE{color:var(--easy)}.tU{color:var(--unc)}.tH{color:var(--hard)}
+.rings-legend{margin:0;padding-left:20px}
+.rings-legend li{margin:5px 0;color:var(--ink2);font-size:14px}
+
+.lawcards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:18px}
+.lawcard{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:15px}
+.lawcard b{display:block;color:#fff;margin-bottom:6px;font-size:14.5px}
+.lawcard span{color:var(--ink2);font-size:13px}
+
+/* president section */
+.pres{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);
+  border-radius:18px;padding:24px 24px 28px;margin:22px 0;scroll-margin-top:64px}
+.pres-R{border-top:3px solid var(--rep)} .pres-D{border-top:3px solid var(--dem)}
+.pres-head{display:flex;align-items:center;gap:14px;margin-bottom:16px;flex-wrap:wrap}
+.pres-tag{font-weight:800;font-size:12px;padding:5px 11px;border-radius:8px;letter-spacing:.05em}
+.pres-tag.R{background:rgba(224,112,138,.16);color:var(--rep);border:1px solid rgba(224,112,138,.4)}
+.pres-tag.D{background:rgba(90,160,230,.16);color:var(--dem);border:1px solid rgba(90,160,230,.4)}
+.pres-title h2{font-size:23px;margin:0;border:0;padding:0}
+.pres-cn{color:var(--muted);font-size:16px;font-weight:600}
+.pres-meta{color:var(--ink2);font-size:13.5px}
+
+/* kpi */
+.kpi-row{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin:8px 0 22px}
+.kpi{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:14px 15px;text-align:center}
+.kpi-val{font-size:24px;font-weight:800;font-variant-numeric:tabular-nums}
+.kpi-lab{color:var(--ink2);font-size:12.5px;margin-top:3px}
+.kpi-sub{color:var(--muted);font-size:11px;margin-top:3px;min-height:14px}
+.kpi-easy .kpi-val{color:var(--easy)} .kpi-unc .kpi-val{color:var(--unc)} .kpi-hard .kpi-val{color:var(--hard)}
+.kpi-ret .kpi-val{color:#7fd4ff} .kpi-dd .kpi-val{color:var(--hard)}
+
+/* chart */
+.chart-wrap{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:16px 16px 12px;margin-bottom:8px}
+.chart-title{font-weight:700;color:#eaf1fb;font-size:15px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap}
+.chart-hint{color:var(--muted);font-size:11.5px;font-weight:400}
+.chart{width:100%;position:relative}
+.chart svg{width:100%;height:auto;display:block;overflow:visible}
+.chart-legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:8px;color:var(--ink2);font-size:12px}
+.lg{display:inline-flex;align-items:center;gap:6px}
+.sw{width:13px;height:13px;border-radius:3px;display:inline-block}
+.sw.easy{background:var(--easy)}.sw.unc{background:var(--unc)}.sw.hard{background:var(--hard)}
+.sw.line{background:var(--ndx);height:3px;border-radius:2px}
+.sw.key{background:var(--key);width:2px;height:14px;border-radius:0}
+.ct-tip{position:absolute;pointer-events:none;background:#0a1220;border:1px solid var(--line2);border-radius:8px;
+  padding:7px 10px;font-size:12px;color:var(--ink);box-shadow:0 6px 20px rgba(0,0,0,.5);z-index:10;white-space:nowrap;transform:translate(-50%,-115%)}
+.ct-tip .zt{font-weight:700}
+
+h3.blk{font-size:17px;color:#eaf1fb;margin:26px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+
+/* cycle year strip */
+.cyc-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.cyc{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:13px 14px;position:relative;overflow:hidden}
+.cyc-easy{border-left:3px solid var(--easy)}.cyc-unc{border-left:3px solid var(--unc)}.cyc-hard{border-left:3px solid var(--hard)}
+.cyc-empty{opacity:.5;border-left:3px solid var(--line2)}
+.cyc-h{font-weight:700;font-size:13px;color:#eaf1fb}
+.cyc-ret{font-size:22px;font-weight:800;margin:4px 0;font-variant-numeric:tabular-nums}
+.cyc-easy .cyc-ret{color:var(--easy)}.cyc-unc .cyc-ret{color:var(--unc)}.cyc-hard .cyc-ret{color:var(--hard)}
+.cyc-bars{display:flex;height:8px;border-radius:5px;overflow:hidden;margin:6px 0;background:var(--line)}
+.cyc-bars .seg{height:100%}
+.seg.easy{background:var(--easy)}.seg.unc{background:var(--unc)}.seg.hard{background:var(--hard)}
+.cyc-sub{color:var(--ink2);font-size:11.5px;font-variant-numeric:tabular-nums}
+.cyc-dd{color:var(--muted);font-size:11px;margin-top:3px}
+.cyc-arch{color:var(--muted);font-size:10.5px;margin-top:6px;border-top:1px dashed var(--line);padding-top:5px}
+.cyc-empty-t{color:var(--muted);font-size:12px;margin-top:8px}
+
+/* tables */
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
+th{background:var(--panel);color:var(--ink2);text-align:left;padding:9px 10px;font-size:12px;font-weight:700;border-bottom:1px solid var(--line2)}
+td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink)}
+tr:hover td{background:rgba(110,168,255,.05)}
+.zbadge{display:inline-block;padding:2px 9px;border-radius:6px;font-size:11.5px;font-weight:700;white-space:nowrap}
+.zbadge.easy{background:var(--easy-b);color:var(--easy);border:1px solid var(--easy-d)}
+.zbadge.unc{background:var(--unc-b);color:var(--unc);border:1px solid var(--unc-d)}
+.zbadge.hard{background:var(--hard-b);color:var(--hard);border:1px solid var(--hard-d)}
+.zbadge.out{background:#1a2740;color:var(--muted);border:1px solid var(--line2)}
+.kd td:first-child,.kd th:first-child{width:110px}
+
+/* events */
+.ev-timeline{position:relative;padding-left:6px}
+.ev{display:grid;grid-template-columns:96px 1fr;gap:14px;padding:9px 0;border-bottom:1px solid var(--line)}
+.ev-date{color:var(--key);font-size:12.5px;font-weight:700;padding-top:2px}
+.ev-cat{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:5px;white-space:nowrap;margin-right:7px}
+.c-fed{background:rgba(242,107,127,.16);color:#f79ba8} .c-qe{background:rgba(62,207,142,.16);color:#6fe0ae}
+.c-war{background:rgba(200,120,255,.16);color:#cba0f0} .c-fis{background:rgba(120,180,255,.16);color:#9ec4ff}
+.c-crisis{background:rgba(255,120,90,.18);color:#ffa585} .c-mkt{background:rgba(150,165,190,.16);color:#b9c6dd}
+.ev-title{font-weight:700;color:#f2f6fc;font-size:13.5px}
+.ev-eff{color:var(--unc);font-size:11.5px;margin-left:8px;font-variant-numeric:tabular-nums}
+.ev-detail{color:var(--ink2);font-size:12.5px;margin-top:2px}
+
+/* rings */
+.rings th{font-size:11.5px}
+.rings td{font-size:12px;color:var(--ink2)}
+.rings .ring-seg{min-width:170px}
+.rings .seg-lbl{color:var(--muted);font-size:10.5px;margin:3px 0}
+.rings .ring-drv{color:#e6ecf5;font-size:12px;font-weight:600}
+.ring-easy .ring-seg{border-left:3px solid var(--easy)} .ring-unc .ring-seg{border-left:3px solid var(--unc)} .ring-hard .ring-seg{border-left:3px solid var(--hard)}
+
+/* narrative */
+.narr{display:grid;grid-template-columns:1.4fr 1fr;gap:16px;margin-top:20px}
+.narr-block{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.narr-block h4{color:#eaf1fb;font-size:14px;margin-bottom:8px}
+.narr-block p{color:var(--ink2);font-size:13.5px;margin:0}
+.narr-block.conform{border-left:3px solid var(--accent)}
+
+/* comparison */
+.cmp .cmp-p{font-weight:700;color:#fff;white-space:nowrap}
+.cmp .cmp-cf{font-weight:700;text-align:center}
+.cmp td{font-size:12px}
+.exc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:6px}
+.exc{background:var(--panel2);border:1px solid var(--line);border-left:3px solid var(--unc);border-radius:10px;padding:12px 14px}
+.exc-n{font-weight:700;color:#fff;font-size:13.5px;margin-bottom:4px}
+.exc-d{color:var(--ink2);font-size:12.5px}
+.callout{background:linear-gradient(180deg,rgba(110,168,255,.08),rgba(110,168,255,.02));border:1px solid var(--line2);
+  border-radius:12px;padding:16px 20px;margin-top:18px}
+.callout h4{color:#eaf1fb;font-size:15px}
+.callout p{color:var(--ink2);margin:0;font-size:13.5px}
+
+/* hist table */
+.hist .hist-p{font-weight:700;white-space:nowrap;color:#eaf1fb}
+.hist tr.cov td{background:rgba(110,168,255,.07)}
+.hist .easy-cell{color:#8fe3bd;font-size:12px}
+.hist .hard-cell{color:#f5a3b0;font-size:12px}
+.hist .ev-cell{color:var(--ink2);font-size:12px}
+.cov-b{background:var(--accent);color:#08101d;font-size:10px;font-weight:800;padding:1px 6px;border-radius:5px;margin-left:5px}
+
+/* policy pills */
+.pill{padding:2px 9px;border-radius:6px;font-weight:700;font-size:11.5px}
+.p-e{background:var(--easy-b);color:var(--easy)} .p-u{background:#1a2740;color:var(--ink2)} .p-h{background:var(--hard-b);color:var(--hard)}
+
+.foot{max-width:1160px;margin:20px auto 0;padding:24px 26px 60px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}
+.foot p{margin:6px 0}
+.disclaim{color:#63708a;font-style:italic}
+
+@media(max-width:860px){
+  .two-col,.kpi-row,.cyc-strip,.lawcards,.narr{grid-template-columns:1fr!important}
+  .kpi-row{grid-template-columns:repeat(2,1fr)!important}
+  .hero h1{font-size:28px}.block{padding:24px 16px}
+  .rings-wrap,table{display:block;overflow-x:auto;white-space:nowrap}
+  .ev{grid-template-columns:80px 1fr}
+}
+
+/* ============ unified presidency-cycle comparison ============ */
+.cy-block{background:linear-gradient(180deg,#101b2b,#0c1524);border:1px solid var(--line2);
+  border-radius:18px;padding:22px 22px 18px;margin:20px 0}
+.cy-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:6px}
+.cy-h2{font-size:20px;font-weight:800;color:#f2f6fc;margin:0}
+.cy-sub{color:var(--ink2);font-size:13px;margin:6px 0 0;max-width:760px}
+.cy-axis-note{color:var(--muted);font-size:11.5px;margin-top:2px}
+.cy-controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.cy-legend{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 6px}
+.cy-lg{display:inline-flex;align-items:center;gap:7px;background:var(--panel2);border:1px solid var(--line);
+  border-radius:9px;padding:6px 11px;cursor:pointer;font:inherit;font-size:12.5px;color:var(--muted);
+  opacity:.45;transition:opacity .15s,border-color .15s}
+.cy-lg i{width:11px;height:11px;border-radius:3px;background:var(--c);flex:none}
+.cy-lg span{font-weight:700}
+.cy-lg em{font-style:normal;font-size:10.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.cy-lg.on{opacity:1;color:var(--ink);border-color:var(--c)}
+.cy-lg:hover{opacity:.85}
+.cy-lg.on:hover{opacity:1}
+.cy-btn{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:6px 12px;
+  color:var(--ink2);font:inherit;font-size:12px;font-weight:600;cursor:pointer}
+.cy-btn:hover{border-color:var(--accent);color:#fff}
+.cy-chart{position:relative;width:100%;margin-top:4px}
+.cy-chart svg{width:100%;height:auto;display:block;overflow:visible}
+.cy-tip{position:absolute;pointer-events:none;background:#08101c;border:1px solid var(--line2);border-radius:10px;
+  padding:9px 11px;font-size:12px;box-shadow:0 10px 30px rgba(0,0,0,.6);z-index:12;transform:translateX(-50%);min-width:212px}
+.cy-tip-h{color:#eaf1fb;font-weight:800;font-size:11.5px;margin-bottom:6px;border-bottom:1px solid var(--line);padding-bottom:5px}
+.cy-tip-h span{color:var(--muted);font-weight:500}
+.cy-tip-r{display:flex;align-items:center;gap:7px;padding:2.5px 0;font-variant-numeric:tabular-nums}
+.cy-tip-r i{width:9px;height:9px;border-radius:2px;flex:none}
+.cy-tip-n{color:var(--ink2);width:56px;flex:none;font-size:11.5px}
+.cy-tip-r b{color:#fff;width:38px;text-align:right;font-size:12.5px}
+.cy-tip-r em{font-style:normal;font-size:9.5px;font-weight:800;padding:1px 5px;border-radius:4px;width:40px;text-align:center}
+.cy-tip-r em.z-E{background:var(--easy-b);color:var(--easy)}
+.cy-tip-r em.z-U{background:var(--unc-b);color:var(--unc)}
+.cy-tip-r em.z-H{background:var(--hard-b);color:var(--hard)}
+.cy-tip-d{color:var(--muted);font-size:10px;margin-left:auto}
+.cy-foot{color:var(--muted);font-size:11.5px;margin-top:10px;border-top:1px solid var(--line);padding-top:9px}
+
+/* phase matrix */
+.pm-wrap{overflow-x:auto}
+.pm{width:100%;border-collapse:separate;border-spacing:3px;font-size:12px;min-width:760px}
+.pm th{background:transparent;color:var(--ink2);font-size:11px;padding:6px 8px;border:0;text-align:center}
+.pm th.pm-ph{text-align:left;min-width:132px}
+.pm td{border:0;border-radius:8px;padding:8px 9px;text-align:center;font-variant-numeric:tabular-nums}
+.pm .pm-ph{text-align:left;background:var(--panel2);color:#eaf1fb;font-weight:700;font-size:11.5px}
+.pm .pm-ph small{display:block;color:var(--muted);font-weight:400;font-size:10px}
+.pm-v{font-size:15px;font-weight:800;line-height:1.15}
+.pm-s{font-size:9.5px;opacity:.8;margin-top:1px}
+.pm-E{background:rgba(62,207,142,.17);color:#7fe0b4;box-shadow:inset 0 0 0 1px rgba(62,207,142,.3)}
+.pm-U{background:rgba(230,178,61,.16);color:#f0cd7d;box-shadow:inset 0 0 0 1px rgba(230,178,61,.3)}
+.pm-H{background:rgba(242,107,127,.18);color:#f79aa8;box-shadow:inset 0 0 0 1px rgba(242,107,127,.34)}
+.pm-na{background:var(--panel2);color:var(--muted);font-size:11px}
+.pm-avg{background:rgba(110,168,255,.12);box-shadow:inset 0 0 0 1px rgba(110,168,255,.3)}
+.pm-pres{display:inline-flex;align-items:center;gap:6px;justify-content:center}
+.pm-pres i{width:9px;height:9px;border-radius:2px}
+
+@media(max-width:860px){
+  .cy-block{padding:16px 12px}
+  .cy-tip{min-width:190px}
+}
+.muted-td{color:var(--ink2);font-size:12px}
+.hero-r1{font-size:.55em;vertical-align:.35em;color:var(--accent);-webkit-text-fill-color:var(--accent);
+  border:1.5px solid var(--accent);border-radius:8px;padding:2px 9px;font-weight:800;letter-spacing:.04em}
+
+/* ============ R2: century (26-term) components ============ */
+.ct-legend{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin:12px 0 4px;font-size:12px;color:var(--ink2)}
+.ct-lg{display:inline-flex;align-items:center;gap:6px}
+.ct-lg i{width:12px;height:3.5px;border-radius:2px;display:inline-block}
+.cy-btn.on{background:var(--accent);color:#08101d;border-color:var(--accent)}
+.med-k{color:#ffd479}
+
+/* tier panels + rubric */
+.tier-panel h4{display:flex;align-items:center;gap:8px}
+.tier-badge{font-size:10px;font-weight:800;padding:2px 8px;border-radius:5px;letter-spacing:.06em}
+.tier-badge.tier-A{background:rgba(62,207,142,.18);color:var(--easy);border:1px solid var(--easy-d)}
+.tier-badge.tier-B{background:rgba(107,125,153,.22);color:#a7b8d0;border:1px solid #43536b}
+.tier-A-panel{border-left:3px solid var(--easy)}
+.tier-B-panel{border-left:3px solid #6b7d99}
+.tier-panel p{font-size:13.5px;color:var(--ink2)}
+.rubric{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:8px;margin-top:4px}
+.rub{background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:9px 10px;text-align:center}
+.rub-v{display:block;font-size:19px;font-weight:800;color:#eaf1fb;font-variant-numeric:tabular-nums}
+.rub-k{display:block;font-size:11px;color:var(--ink2);margin-top:2px}
+
+/* small multiples */
+.sm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(238px,1fr));gap:10px}
+.sm-card{background:var(--panel2);border:1px solid var(--line);border-radius:11px;padding:9px 10px 7px;
+  cursor:pointer;font:inherit;text-align:left;color:inherit;transition:border-color .15s,transform .12s}
+.sm-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.sm-card.on{border-color:#fff;box-shadow:0 0 0 1px #fff inset}
+.sm-card svg{width:100%;height:auto;display:block;margin:4px 0 2px}
+.sm-h{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.sm-n{font-weight:800;font-size:12.5px;color:#eaf1fb}
+.sm-y{font-size:10.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.sm-t{margin-left:auto;font-size:9px;font-weight:800;padding:1px 5px;border-radius:4px}
+.sm-t-A{background:rgba(62,207,142,.18);color:var(--easy)}
+.sm-t-B{background:rgba(107,125,153,.22);color:#a7b8d0}
+.sm-t-M{background:rgba(230,178,61,.18);color:var(--unc)}
+.sm-f{font-size:9.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+
+/* century phase matrix */
+.pm-century{min-width:1000px}
+.pm-century th small{display:block;font-weight:400;font-size:9px;color:var(--muted);margin-top:2px}
+.pm-century .pm-v{font-size:13px}
+.pm-century .pm-s{font-size:9px}
+.pm-tier{background:var(--panel2);font-size:10px;font-weight:800}
+.pm-tier.tier-A{color:var(--easy)} .pm-tier.tier-B{color:#8fa0bb} .pm-tier.tier-M{color:var(--unc)}
+.pm-sum td{border-top:2px solid var(--accent)!important}
+.pm-sum .pm-ph{background:rgba(110,168,255,.14)}
+
+/* trough bars */
+.tb{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.tb-row{display:flex;align-items:center;gap:10px;font-size:12.5px}
+.tb-lab{width:52px;color:var(--ink2);flex:none}
+.tb-row.hot .tb-lab{color:#fff;font-weight:800}
+.tb-track{flex:1;height:16px;background:var(--panel2);border-radius:5px;overflow:hidden}
+.tb-fill{height:100%;background:#4a6485;border-radius:5px}
+.tb-fill.hot{background:var(--hard)}
+.tb-val{width:78px;text-align:right;color:var(--ink2);font-variant-numeric:tabular-nums;flex:none}
+.tb-row.hot .tb-val{color:var(--hard);font-weight:800}
+.mb{display:flex;gap:4px;align-items:flex-end;height:112px;margin-top:8px}
+.mb-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;height:100%}
+.mb-bar-wrap{flex:1;width:100%;display:flex;align-items:flex-end}
+.mb-bar{width:100%;background:#4a6485;border-radius:3px 3px 0 0;min-height:2px}
+.mb-bar.hot{background:var(--hard)}
+.mb-n{font-size:10px;color:var(--ink2);font-variant-numeric:tabular-nums;height:12px}
+.mb-m{font-size:9.5px;color:var(--muted)}
+.mt-list{max-width:520px}
+
+/* year stats + segments */
+.ys-y{font-weight:700;color:#eaf1fb;white-space:nowrap}
+.ys-v{font-weight:800;text-align:center;border-radius:7px}
+.segs td{font-size:12px}
+.seg-p{font-weight:700;color:#eaf1fb;white-space:nowrap;background:var(--panel2);vertical-align:top}
+.seg-p small{display:block;color:var(--muted);font-weight:400;font-size:10px}
+.seg-v{text-align:center;font-weight:800;border-radius:6px}
+.lv-tag{background:var(--panel2);border:1px solid var(--line2);border-radius:5px;padding:1px 7px;font-size:11px;color:var(--ink2)}
+.seg-a td{background:rgba(62,207,142,.05)}
+
+@media(max-width:860px){ .sm-grid{grid-template-columns:1fr 1fr} .rubric{grid-template-columns:repeat(2,1fr)} }
+
+/* ============ R2 anchor view (current-president real-calendar axis) ============ */
+.am-controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:2px 0 12px}
+.am-card{background:var(--panel2);border:1px solid var(--line);border-radius:12px;margin:8px 0;overflow:hidden}
+.am-card[open]{border-color:var(--line2);background:linear-gradient(180deg,var(--panel),var(--panel2))}
+.am-sum{display:flex;align-items:center;gap:12px;padding:10px 14px;cursor:pointer;list-style:none;user-select:none}
+.am-sum::-webkit-details-marker{display:none}
+.am-sum:hover{background:rgba(110,168,255,.05)}
+.am-chev{color:var(--muted);font-size:12px;transition:transform .15s;flex:none}
+.am-card[open] .am-chev{transform:rotate(90deg)}
+.am-name{font-weight:800;font-size:13.5px;color:#eaf1fb;width:150px;flex:none}
+.am-name small{display:block;font-weight:400;font-size:10px;color:var(--muted)}
+.am-ministrip{flex:1;min-width:180px}
+.am-ministrip svg{width:100%;height:26px;display:block}
+.am-chip{font-size:10.5px;font-weight:800;padding:3px 9px;border-radius:6px;border:1px solid;white-space:nowrap;flex:none;font-variant-numeric:tabular-nums}
+.am-chip-na{background:var(--panel);color:var(--muted);border-color:var(--line)}
+.am-ntr{color:var(--muted);font-size:10.5px;white-space:nowrap;flex:none;font-variant-numeric:tabular-nums}
+.am-body{padding:6px 16px 14px;border-top:1px solid var(--line)}
+.am-bigstrip svg{width:100%;height:auto;display:block}
+.am-tt{font-size:12px}
+.am-tt .am-num{width:34px;text-align:center}
+.am-flag{display:inline-flex;align-items:center;justify-content:center;width:19px;height:19px;border-radius:50%;
+  color:#0b111b;font-weight:800;font-size:10.5px}
+.am-anchor-d{color:#7fd4ff;font-weight:700}
+.am-arrow{color:var(--muted);margin:0 5px}
+.am-reason{color:var(--ink2);font-size:12px}
+.am-ev{color:var(--unc);font-size:11px;margin-top:2px}
+.am-trough{color:var(--ink2);font-size:12px;margin:10px 0 0;border-top:1px dashed var(--line);padding-top:9px}
+.am-master-wrap svg{width:100%;height:auto;display:block}
+.am-now-box{display:flex;gap:14px;flex-wrap:wrap;margin:12px 0 0}
+.am-now-item{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:12px;color:var(--ink2)}
+.am-now-item b{display:block;font-size:16px;color:#7fd4ff;font-variant-numeric:tabular-nums}
+@media(max-width:860px){
+  .am-sum{flex-wrap:wrap}.am-ministrip{min-width:100%;order:9}
+  .am-name{width:auto}
+}
+.am-nowp{font-weight:700;color:#eaf1fb;white-space:nowrap}
+</style>
+</head><body>
+<header class="hero">
+  <div class="hero-eyebrow">R2 · 現任錨定 · 生成 2026-07-26 00:13 香港時間</div>
+  <h1>美國總統 E/H MONEY <span class="hero-r1">R2</span></h1>
+  <div class="hero-sub">以<b>現任總統（特朗普 II）的真實日曆時間</b>作為 X 軸：
+  <b>YEAR 0</b> 當選（2024年11月）→ <b>YEAR 1</b> 就職（2025-01-20）→ <b>YEAR 2</b>（2026）→
+  <b>YEAR 3</b>（2027）→ <b>YEAR 4</b>（2028）→ <b>YEAR 5</b> 卸任（2029-01-20）。
+  歷任 25 屆前總統全部按「就任週期日」對齊到同一條軸上——在現任的任何一個日子，
+  都可直接讀出每位前任「當年走到同一位置時」正處什麼資金區、以及他們每一次轉區的原因與大事件。</div>
+  <div class="hero-strip">
+    <span class="hs easy">26 屆 · 85 次轉區全部標注原因</span>
+    <span class="hs unc">藍線＝現在 2026-07-10（週期第 536 日）</span>
+    <span class="hs hard">3 屆量測級 · 22 屆重建級</span>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#master">★現任主圖</a><a href="#atnow">同位對照</a><a href="#cards">歷任逐屆（展開/收合）</a>
+</nav>
+
+<section id="master" class="block">
+  <div class="cy-block">
+    <div class="cy-head"><div>
+      <h2 class="cy-h2">★ 現任（特朗普 II）— 真實時間軸 × Easy/Hard 指數 × 轉區注記</h2>
+      <p class="cy-sub">白線＝每日 18 指標合成分（21 日平滑，量測級）；下方色帶＝制度級資金區分段；
+      帶編號的圓點＝每次轉區（滑鼠停留看原因與事件，完整明細見下表）；<b style="color:#7fd4ff">藍色直線＝現在</b>。</p>
+    </div></div>
+    <div class="cy-chart am-master-wrap" id="am-master"></div>
+    <div class="cy-foot">現在位置：週期第 536 日＝YEAR 2（中期選舉年）中後段，距 2026-11-03 中期選舉約 116 日。
+    百年劇本：第2年 Hard 高發段的大底多落 Q4（見 R2 百年版），其後第3年（2027）為全週期最強一段。</div>
+    <h3 class="blk">現任轉區明細</h3>
+    <div id="am-master-tt"></div>
+  </div>
+</section>
+
+<section id="atnow" class="block">
+  <h2>同位對照：歷任走到「現在這個位置」（週期第 536 日）時正處什麼區？</h2>
+  <p class="muted">把現在（2026-07-10，就任後第 536 日）對映到每位前任自己的日曆——
+  例如拜登的同位日是 2022-07-09（加息熊市最深處），特朗普 I 的同位日是 2018-07-09（貿易戰夏季仍 EASY）。</p>
+  <div class="pm-wrap"><table class="kd" style="max-width:640px">
+    <thead><tr><th>總統</th><th>自家同位日期</th><th>當時資金區</th><th>指數</th></tr></thead>
+    <tbody><tr><td class='am-nowp'>特朗普 II</td><td class='mono'>2026-07-09</td><td><span class='zbadge unc'>UNCERTAIN</span></td><td class='mono'>52</td></tr><tr><td class='am-nowp'>拜登</td><td class='mono'>2022-07-09</td><td><span class='zbadge hard'>HARD</span></td><td class='mono'>20</td></tr><tr><td class='am-nowp'>特朗普 I</td><td class='mono'>2018-07-09</td><td><span class='zbadge easy'>EASY</span></td><td class='mono'>76</td></tr><tr><td class='am-nowp'>奧巴馬 II</td><td class='mono'>2014-07-09</td><td><span class='zbadge easy'>EASY</span></td><td class='mono'>92</td></tr><tr><td class='am-nowp'>奧巴馬 I</td><td class='mono'>2010-07-09</td><td><span class='zbadge unc'>UNCERTAIN</span></td><td class='mono'>45</td></tr><tr><td class='am-nowp'>小布殊 II</td><td class='mono'>2006-07-09</td><td><span class='zbadge easy'>EASY</span></td><td class='mono'>84</td></tr><tr><td class='am-nowp'>小布殊 I</td><td class='mono'>2002-07-09</td><td><span class='zbadge hard'>HARD</span></td><td class='mono'>10</td></tr><tr><td class='am-nowp'>克林頓 II</td><td class='mono'>1998-07-09</td><td><span class='zbadge easy'>EASY</span></td><td class='mono'>84</td></tr><tr><td class='am-nowp'>克林頓 I</td><td class='mono'>1994-07-09</td><td><span class='zbadge unc'>UNCERTAIN</span></td><td class='mono'>45</td></tr><tr><td class='am-nowp'>老布殊</td><td class='mono'>1990-07-09</td><td><span class='zbadge easy'>EASY</span></td><td class='mono'>84</td></tr><tr><td class='am-nowp'>列根 II</td><td class='mono'>1986-07-09</td><td><span class='zbadge easy'>EASY</span></td><td class='mono'>92</td></tr><tr><td class='am-nowp'>列根 I</td><td class='mono'>1982-07-09</td><td><span class='zbadge hard'>HARD</span></td><td class='mono'>20</td></tr><tr><td class='am-nowp'>卡特</td><td class='mono'>1978-07-09</td><td><span class='zbadge easy'>EASY</span></td><td class='mono'>72</td></tr><tr><td class='am-nowp'>尼克遜 II/福特</td><td class='mono'>1974-07-09</td><td><span class='zbadge hard'>HARD</span></td><td class='mono'>10</td></tr><tr><td class='am-nowp'>尼克遜 I</td><td class='mono'>1970-07-09</td><td><span class='zbadge unc'>UNCERTAIN</span></td><td class='mono'>58</td></tr><tr><td class='am-nowp'>詹森</td><td class='mono'>1966-07-09</td><td><span class='zbadge hard'>HARD</span></td><td class='mono'>20</td></tr><tr><td class='am-nowp'>甘迺迪/詹森</td><td class='mono'>1962-07-09</td><td><span class='zbadge unc'>UNCERTAIN</span></td><td class='mono'>45</td></tr><tr><td class='am-nowp'>艾森豪 II</td><td class='mono'>1958-07-09</td><td><span class='zbadge easy'>EASY</span></td><td class='mono'>84</td></tr><tr><td class='am-nowp'>艾森豪 I</td><td class='mono'>1954-07-09</td><td><span class='zbadge easy'>EASY</span></td><td class='mono'>92</td></tr><tr><td class='am-nowp'>杜魯門</td><td class='mono'>1950-07-09</td><td><span class='zbadge hard'>HARD</span></td><td class='mono'>30</td></tr><tr><td class='am-nowp'>羅斯福 IV/杜魯門</td><td class='mono'>1946-07-09</td><td><span class='zbadge hard'>HARD</span></td><td class='mono'>20</td></tr><tr><td class='am-nowp'>羅斯福 III</td><td class='mono'>1942-07-09</td><td><span class='zbadge easy'>EASY</span></td><td class='mono'>92</td></tr><tr><td class='am-nowp'>羅斯福 II</td><td class='mono'>1938-07-09</td><td><span class='zbadge easy'>EASY</span></td><td class='mono'>84</td></tr><tr><td class='am-nowp'>羅斯福 I</td><td class='mono'>1934-08-21</td><td><span class='zbadge easy'>EASY</span></td><td class='mono'>84</td></tr><tr><td class='am-nowp'>胡佛</td><td class='mono'>1930-08-21</td><td><span class='zbadge hard'>HARD</span></td><td class='mono'>10</td></tr><tr><td class='am-nowp'>柯立芝</td><td class='mono'>1926-08-21</td><td><span class='zbadge easy'>EASY</span></td><td class='mono'>92</td></tr></tbody></table></div>
+</section>
+
+<section id="cards" class="block">
+  <h2>歷任 25 屆 — 逐屆展開/收合比較（新→舊）</h2>
+  <p class="muted">每列可獨立展開：展開後顯示該屆對標現任時間軸的完整分段、
+  每次轉區的編號旗標與「主因＋大事件」明細表（自家日期 ↔ 對標現任日期並列）。
+  摘要列右側為「同位」晶片＝該屆在現在這個週期位置時的資金區。</p>
+  <div class="am-controls">
+    <button class="cy-btn" id="am-expand-all" type="button">▼ 全部展開</button>
+    <button class="cy-btn" id="am-collapse-all" type="button">▲ 全部收合</button>
+    <span class="muted" style="font-size:11.5px">▾ 白/黃三角＝任內大底（黃＝落在第2年中期選舉年）；量測級(A)＝每日18指標；重建級(B)＝R1窗口+市場史</span>
+  </div>
+  <div id="am-cards"></div>
+</section>
+
+<footer class="foot">
+  <p>版本：R2（現任錨定版）· 生成 2026-07-26 00:13 香港時間 · 檔名 美國總統E-H MONEY R2 (07-26_hk00.13).html</p>
+  <p>資料來源：A-(Fable) EasyHardMoney 三區指標庫及 NDX 十年每日分段 2026R4.5.3_2（量測級每日判區）；
+  美國總統任期百年 EasyHard 資金市場週期 R1（重建級逐屆窗口）。轉區原因：量測級取經核實的分段驅動與事件庫，重建級取 R1 逐段依據注記。</p>
+  <p class="disclaim">1937 年前就職日為 3 月 4 日，對齊以就職日為第 0 日，與日曆年帶有約 6 週漂移。本報告為市場史/框架研究，非投資建議。</p>
+</footer>
+
+<script>const DATA={"anchor":{"anchor":{"name":"Trump II","cn":"特朗普 II","inaug":"2025-01-20","election":"2024-11-05","end":"2029-01-20","now":"2026-07-10","cd_now":536},"milestones":[{"label":"當選 YEAR 0","date":"2024-11-05","cd":-76,"note":"2024年11月當選"},{"label":"就職 YEAR 1","date":"2025-01-20","cd":0,"note":"2025年1月20日就任"},{"label":"首100日","date":"2025-04-30","cd":100,"note":"政策開刀窗口（關稅）"},{"label":"YEAR 2","date":"2026-01-01","cd":346,"note":"中期選舉年開始"},{"label":"中期選舉","date":"2026-11-03","cd":652,"note":"2026年11月3日"},{"label":"YEAR 3","date":"2027-01-01","cd":711,"note":"原型最強年"},{"label":"YEAR 4","date":"2028-01-01","cd":1076,"note":"大選年"},{"label":"大選","date":"2028-11-07","cd":1387,"note":"2028年11月7日"},{"label":"卸任 YEAR 5","date":"2029-01-20","cd":1461,"note":"2029年1月20日任滿"}],"yearbands":[{"y":0,"cd0":-76,"cd1":0,"lab":"YEAR 0"},{"y":1,"cd0":0,"cd1":346,"lab":"YEAR 1 · 2025"},{"y":2,"cd0":346,"cd1":711,"lab":"YEAR 2 · 2026"},{"y":3,"cd0":711,"cd1":1076,"lab":"YEAR 3 · 2027"},{"y":4,"cd0":1076,"cd1":1442,"lab":"YEAR 4 · 2028"},{"y":5,"cd0":1442,"cd1":1461,"lab":"YEAR 5"}],"master":[{"cd":-76,"t":"2024-11-05","s":82.4,"sm":94.1,"z":"E","ix":94.34},{"cd":-75,"t":"2024-11-06","s":88.2,"sm":93.6,"z":"E","ix":96.92},{"cd":-74,"t":"2024-11-07","s":94.1,"sm":93.2,"z":"E","ix":98.42},{"cd":-73,"t":"2024-11-08","s":94.1,"sm":92.8,"z":"E","ix":98.49},{"cd":-70,"t":"2024-11-11","s":100,"sm":92.9,"z":"E","ix":98.44},{"cd":-69,"t":"2024-11-12","s":100,"sm":93.0,"z":"E","ix":98.27},{"cd":-68,"t":"2024-11-13","s":100,"sm":93.1,"z":"E","ix":98.11},{"cd":-67,"t":"2024-11-14","s":100,"sm":93.1,"z":"E","ix":97.46},{"cd":-66,"t":"2024-11-15","s":94.1,"sm":93.2,"z":"E","ix":95.12},{"cd":-63,"t":"2024-11-18","s":94.1,"sm":93.2,"z":"E","ix":95.79},{"cd":-62,"t":"2024-11-19","s":88.2,"sm":93.3,"z":"E","ix":96.47},{"cd":-61,"t":"2024-11-20","s":88.2,"sm":94.1,"z":"E","ix":96.39},{"cd":-60,"t":"2024-11-21","s":88.2,"sm":94.7,"z":"E","ix":96.73},{"cd":-59,"t":"2024-11-22","s":88.2,"sm":94.9,"z":"E","ix":96.9},{"cd":-56,"t":"2024-11-25","s":94.1,"sm":95.2,"z":"E","ix":97.03},{"cd":-55,"t":"2024-11-26","s":94.1,"sm":94.9,"z":"E","ix":97.58},{"cd":-54,"t":"2024-11-27","s":94.1,"sm":94.7,"z":"E","ix":96.75},{"cd":-52,"t":"2024-11-29","s":94.1,"sm":94.4,"z":"E","ix":97.62},{"cd":-49,"t":"2024-12-02","s":94.1,"sm":94.1,"z":"E","ix":98.71},{"cd":-48,"t":"2024-12-03","s":94.1,"sm":94.1,"z":"E","ix":99.01},{"cd":-47,"t":"2024-12-04","s":94.1,"sm":92.9,"z":"E","ix":100.24},{"cd":-46,"t":"2024-12-05","s":100,"sm":92.5,"z":"E","ix":99.93},{"cd":-45,"t":"2024-12-06","s":100,"sm":92.4,"z":"E","ix":100.84},{"cd":-42,"t":"2024-12-09","s":100,"sm":92.1,"z":"E","ix":100.0},{"cd":-41,"t":"2024-12-10","s":100,"sm":92.1,"z":"E","ix":99.66},{"cd":-40,"t":"2024-12-11","s":94.1,"sm":91.4,"z":"E","ix":101.51},{"cd":-39,"t":"2024-12-12","s":94.1,"sm":91.0,"z":"E","ix":100.81},{"cd":-38,"t":"2024-12-13","s":94.1,"sm":90.7,"z":"E","ix":101.58},{"cd":-35,"t":"2024-12-16","s":94.1,"sm":90.3,"z":"E","ix":103.06},{"cd":-34,"t":"2024-12-17","s":94.1,"sm":89.9,"z":"E","ix":102.61},{"cd":-33,"t":"2024-12-18","s":68.6,"sm":89.3,"z":"U","ix":98.92},{"cd":-32,"t":"2024-12-19","s":80.4,"sm":88.6,"z":"E","ix":98.46},{"cd":-31,"t":"2024-12-20","s":86.3,"sm":87.7,"z":"E","ix":99.29},{"cd":-28,"t":"2024-12-23","s":80.4,"sm":86.7,"z":"E","ix":100.29},{"cd":-27,"t":"2024-12-24","s":88.2,"sm":86.1,"z":"E","ix":101.66},{"cd":-25,"t":"2024-12-26","s":80.4,"sm":85.4,"z":"E","ix":101.53},{"cd":-24,"t":"2024-12-27","s":86.3,"sm":84.4,"z":"E","ix":100.15},{"cd":-21,"t":"2024-12-30","s":86.3,"sm":84.1,"z":"E","ix":98.86},{"cd":-20,"t":"2024-12-31","s":86.3,"sm":83.8,"z":"E","ix":98.0},{"cd":-18,"t":"2025-01-02","s":86.3,"sm":83.6,"z":"E","ix":97.83},{"cd":-17,"t":"2025-01-03","s":80.4,"sm":83.6,"z":"E","ix":99.46},{"cd":-14,"t":"2025-01-06","s":80.4,"sm":85.1,"z":"E","ix":100.55},{"cd":-13,"t":"2025-01-07","s":80.4,"sm":86.0,"z":"E","ix":98.75},{"cd":-12,"t":"2025-01-08","s":80.4,"sm":86.6,"z":"E","ix":98.79},{"cd":-10,"t":"2025-01-10","s":86.3,"sm":86.9,"z":"E","ix":97.23},{"cd":-7,"t":"2025-01-13","s":86.3,"sm":86.8,"z":"E","ix":96.94},{"cd":-6,"t":"2025-01-14","s":72.5,"sm":86.9,"z":"E","ix":96.81},{"cd":-5,"t":"2025-01-15","s":88.2,"sm":86.7,"z":"E","ix":99.05},{"cd":-4,"t":"2025-01-16","s":88.2,"sm":86.1,"z":"E","ix":98.37},{"cd":-3,"t":"2025-01-17","s":88.2,"sm":85.6,"z":"E","ix":100.0},{"cd":1,"t":"2025-01-21","s":94.1,"sm":85.1,"z":"E","ix":100.58},{"cd":2,"t":"2025-01-22","s":100,"sm":85.5,"z":"E","ix":101.92},{"cd":3,"t":"2025-01-23","s":100,"sm":85.9,"z":"E","ix":102.14},{"cd":4,"t":"2025-01-24","s":100,"sm":86.0,"z":"E","ix":101.55},{"cd":7,"t":"2025-01-27","s":86.3,"sm":86.0,"z":"E","ix":98.54},{"cd":8,"t":"2025-01-28","s":86.3,"sm":85.8,"z":"E","ix":100.1},{"cd":9,"t":"2025-01-29","s":81.4,"sm":85.6,"z":"E","ix":99.86},{"cd":10,"t":"2025-01-30","s":81.4,"sm":86.0,"z":"E","ix":100.31},{"cd":11,"t":"2025-01-31","s":75.5,"sm":85.7,"z":"E","ix":100.17},{"cd":14,"t":"2025-02-03","s":75.5,"sm":85.7,"z":"E","ix":99.33},{"cd":15,"t":"2025-02-04","s":75.5,"sm":85.8,"z":"E","ix":100.59},{"cd":16,"t":"2025-02-05","s":89.2,"sm":85.5,"z":"E","ix":101.01},{"cd":17,"t":"2025-02-06","s":89.2,"sm":85.0,"z":"E","ix":101.55},{"cd":18,"t":"2025-02-07","s":81.4,"sm":84.1,"z":"E","ix":100.23},{"cd":21,"t":"2025-02-10","s":81.4,"sm":83.0,"z":"E","ix":101.47},{"cd":22,"t":"2025-02-11","s":81.4,"sm":82.5,"z":"E","ix":101.18},{"cd":23,"t":"2025-02-12","s":81.4,"sm":81.3,"z":"E","ix":101.3},{"cd":24,"t":"2025-02-13","s":81.4,"sm":81.0,"z":"E","ix":102.75},{"cd":25,"t":"2025-02-14","s":81.4,"sm":80.1,"z":"E","ix":103.14},{"cd":29,"t":"2025-02-18","s":89.2,"sm":79.4,"z":"E","ix":103.37},{"cd":30,"t":"2025-02-19","s":89.2,"sm":78.8,"z":"E","ix":103.43},{"cd":31,"t":"2025-02-20","s":89.2,"sm":77.7,"z":"E","ix":102.92},{"cd":32,"t":"2025-02-21","s":89.2,"sm":76.1,"z":"E","ix":100.81},{"cd":35,"t":"2025-02-24","s":81.4,"sm":73.7,"z":"E","ix":99.58},{"cd":36,"t":"2025-02-25","s":75.5,"sm":71.4,"z":"E","ix":98.35},{"cd":37,"t":"2025-02-26","s":75.5,"sm":69.3,"z":"E","ix":98.56},{"cd":38,"t":"2025-02-27","s":61.8,"sm":67.3,"z":"U","ix":95.85},{"cd":39,"t":"2025-02-28","s":75.5,"sm":65.2,"z":"E","ix":97.4},{"cd":42,"t":"2025-03-03","s":61.8,"sm":63.2,"z":"U","ix":95.26},{"cd":43,"t":"2025-03-04","s":61.8,"sm":61.1,"z":"U","ix":94.92},{"cd":44,"t":"2025-03-05","s":61.8,"sm":59.0,"z":"U","ix":96.21},{"cd":45,"t":"2025-03-06","s":53.9,"sm":57.1,"z":"U","ix":93.52},{"cd":46,"t":"2025-03-07","s":53.9,"sm":55.2,"z":"U","ix":94.22},{"cd":49,"t":"2025-03-10","s":40.2,"sm":54.1,"z":"U","ix":90.62},{"cd":50,"t":"2025-03-11","s":32.4,"sm":53.4,"z":"H","ix":90.37},{"cd":51,"t":"2025-03-12","s":38.2,"sm":52.5,"z":"H","ix":91.39},{"cd":52,"t":"2025-03-13","s":38.2,"sm":51.3,"z":"H","ix":89.67},{"cd":53,"t":"2025-03-14","s":38.2,"sm":50.5,"z":"H","ix":91.9},{"cd":56,"t":"2025-03-17","s":38.2,"sm":48.6,"z":"H","ix":92.4},{"cd":57,"t":"2025-03-18","s":38.2,"sm":47.1,"z":"H","ix":90.87},{"cd":58,"t":"2025-03-19","s":44.1,"sm":46.0,"z":"U","ix":92.05},{"cd":59,"t":"2025-03-20","s":50,"sm":43.8,"z":"U","ix":91.77},{"cd":60,"t":"2025-03-21","s":50,"sm":42.1,"z":"U","ix":92.13},{"cd":63,"t":"2025-03-24","s":65.7,"sm":39.9,"z":"U","ix":94.12},{"cd":64,"t":"2025-03-25","s":65.7,"sm":38.4,"z":"U","ix":94.62},{"cd":65,"t":"2025-03-26","s":57.8,"sm":38.0,"z":"U","ix":92.89},{"cd":66,"t":"2025-03-27","s":50,"sm":36.9,"z":"U","ix":92.34},{"cd":67,"t":"2025-03-28","s":44.1,"sm":35.8,"z":"U","ix":89.93},{"cd":70,"t":"2025-03-31","s":36.3,"sm":35.0,"z":"H","ix":89.91},{"cd":71,"t":"2025-04-01","s":30.4,"sm":34.4,"z":"H","ix":90.65},{"cd":72,"t":"2025-04-02","s":38.2,"sm":33.3,"z":"H","ix":91.33},{"cd":73,"t":"2025-04-03","s":16.7,"sm":32.4,"z":"H","ix":86.38},{"cd":74,"t":"2025-04-04","s":16.7,"sm":31.0,"z":"H","ix":81.14},{"cd":77,"t":"2025-04-07","s":8.8,"sm":29.3,"z":"H","ix":81.3},{"cd":78,"t":"2025-04-08","s":8.8,"sm":26.7,"z":"H","ix":79.71},{"cd":79,"t":"2025-04-09","s":24.5,"sm":24.6,"z":"H","ix":89.29},{"cd":80,"t":"2025-04-10","s":14.7,"sm":23.4,"z":"H","ix":85.55},{"cd":81,"t":"2025-04-11","s":14.7,"sm":22.6,"z":"H","ix":87.17},{"cd":84,"t":"2025-04-14","s":20.6,"sm":22.6,"z":"H","ix":87.66},{"cd":85,"t":"2025-04-15","s":26.5,"sm":22.7,"z":"H","ix":87.82},{"cd":86,"t":"2025-04-16","s":14.7,"sm":23.5,"z":"H","ix":85.15},{"cd":87,"t":"2025-04-17","s":26.5,"sm":24.2,"z":"H","ix":85.15},{"cd":91,"t":"2025-04-21","s":20.6,"sm":26.0,"z":"H","ix":83.06},{"cd":92,"t":"2025-04-22","s":12.7,"sm":27.4,"z":"H","ix":85.24},{"cd":93,"t":"2025-04-23","s":12.7,"sm":29.6,"z":"H","ix":87.18},{"cd":94,"t":"2025-04-24","s":20.6,"sm":31.7,"z":"H","ix":89.61},{"cd":95,"t":"2025-04-25","s":32.4,"sm":32.8,"z":"H","ix":90.63},{"cd":98,"t":"2025-04-28","s":32.4,"sm":36.2,"z":"H","ix":90.61},{"cd":99,"t":"2025-04-29","s":46.1,"sm":39.8,"z":"U","ix":91.16},{"cd":100,"t":"2025-04-30","s":38.2,"sm":43.2,"z":"H","ix":91.28},{"cd":101,"t":"2025-05-01","s":46.1,"sm":46.3,"z":"U","ix":92.28},{"cd":102,"t":"2025-05-02","s":53.9,"sm":49.9,"z":"U","ix":93.76},{"cd":105,"t":"2025-05-05","s":53.9,"sm":53.0,"z":"U","ix":93.13},{"cd":106,"t":"2025-05-06","s":46.1,"sm":56.4,"z":"U","ix":92.31},{"cd":107,"t":"2025-05-07","s":53.9,"sm":59.8,"z":"U","ix":92.66},{"cd":108,"t":"2025-05-08","s":53.9,"sm":63.0,"z":"U","ix":93.57},{"cd":109,"t":"2025-05-09","s":48,"sm":65.4,"z":"U","ix":93.57},{"cd":112,"t":"2025-05-12","s":85.3,"sm":67.7,"z":"E","ix":97.33},{"cd":113,"t":"2025-05-13","s":91.2,"sm":69.9,"z":"E","ix":98.86},{"cd":114,"t":"2025-05-14","s":91.2,"sm":71.8,"z":"E","ix":99.43},{"cd":115,"t":"2025-05-15","s":91.2,"sm":73.6,"z":"E","ix":99.51},{"cd":116,"t":"2025-05-16","s":91.2,"sm":75.1,"z":"E","ix":99.94},{"cd":119,"t":"2025-05-19","s":91.2,"sm":76.6,"z":"E","ix":100.03},{"cd":120,"t":"2025-05-20","s":91.2,"sm":78.1,"z":"E","ix":99.66},{"cd":121,"t":"2025-05-21","s":85.3,"sm":79.6,"z":"E","ix":98.32},{"cd":122,"t":"2025-05-22","s":79.4,"sm":81.1,"z":"E","ix":98.47},{"cd":123,"t":"2025-05-23","s":71.6,"sm":82.6,"z":"E","ix":97.55},{"cd":127,"t":"2025-05-27","s":79.4,"sm":84.4,"z":"E","ix":99.88},{"cd":128,"t":"2025-05-28","s":79.4,"sm":84.4,"z":"E","ix":99.43},{"cd":129,"t":"2025-05-29","s":85.3,"sm":84.1,"z":"E","ix":99.64},{"cd":130,"t":"2025-05-30","s":77.5,"sm":83.5,"z":"E","ix":99.53},{"cd":133,"t":"2025-06-02","s":77.5,"sm":83.3,"z":"E","ix":100.24},{"cd":134,"t":"2025-06-03","s":85.3,"sm":82.9,"z":"E","ix":101.03},{"cd":135,"t":"2025-06-04","s":85.3,"sm":82.4,"z":"E","ix":101.31},{"cd":136,"t":"2025-06-05","s":77.5,"sm":81.6,"z":"E","ix":100.5},{"cd":137,"t":"2025-06-06","s":85.3,"sm":81.7,"z":"E","ix":101.5},{"cd":140,"t":"2025-06-09","s":85.3,"sm":82.0,"z":"E","ix":101.66},{"cd":141,"t":"2025-06-10","s":85.3,"sm":82.9,"z":"E","ix":102.34},{"cd":142,"t":"2025-06-11","s":85.3,"sm":83.3,"z":"E","ix":101.96},{"cd":143,"t":"2025-06-12","s":85.3,"sm":84.1,"z":"E","ix":102.2},{"cd":144,"t":"2025-06-13","s":79.4,"sm":84.6,"z":"E","ix":100.89},{"cd":147,"t":"2025-06-16","s":87.3,"sm":85.4,"z":"E","ix":102.32},{"cd":148,"t":"2025-06-17","s":81.4,"sm":86.2,"z":"E","ix":101.3},{"cd":149,"t":"2025-06-18","s":81.4,"sm":86.7,"z":"E","ix":101.3},{"cd":151,"t":"2025-06-20","s":73.5,"sm":86.9,"z":"E","ix":100.86},{"cd":154,"t":"2025-06-23","s":87.3,"sm":87.4,"z":"E","ix":101.94},{"cd":155,"t":"2025-06-24","s":87.3,"sm":87.6,"z":"E","ix":103.49},{"cd":156,"t":"2025-06-25","s":89.2,"sm":87.8,"z":"E","ix":103.72},{"cd":157,"t":"2025-06-26","s":89.2,"sm":88.0,"z":"E","ix":104.69},{"cd":158,"t":"2025-06-27","s":95.1,"sm":88.2,"z":"E","ix":105.1},{"cd":161,"t":"2025-06-30","s":95.1,"sm":88.4,"z":"E","ix":105.77},{"cd":162,"t":"2025-07-01","s":95.1,"sm":88.8,"z":"E","ix":104.84},{"cd":163,"t":"2025-07-02","s":95.1,"sm":88.9,"z":"E","ix":105.6},{"cd":164,"t":"2025-07-03","s":95.1,"sm":89.3,"z":"E","ix":106.65},{"cd":168,"t":"2025-07-07","s":89.2,"sm":89.7,"z":"E","ix":105.8},{"cd":169,"t":"2025-07-08","s":89.2,"sm":90.4,"z":"E","ix":105.88},{"cd":170,"t":"2025-07-09","s":89.2,"sm":90.5,"z":"E","ix":106.64},{"cd":171,"t":"2025-07-10","s":89.2,"sm":90.6,"z":"E","ix":106.47},{"cd":172,"t":"2025-07-11","s":89.2,"sm":90.6,"z":"E","ix":106.25},{"cd":175,"t":"2025-07-14","s":89.2,"sm":90.6,"z":"E","ix":106.6},{"cd":176,"t":"2025-07-15","s":89.2,"sm":90.3,"z":"E","ix":106.73},{"cd":177,"t":"2025-07-16","s":89.2,"sm":90.0,"z":"E","ix":106.84},{"cd":178,"t":"2025-07-17","s":89.2,"sm":89.4,"z":"E","ix":107.65},{"cd":179,"t":"2025-07-18","s":89.2,"sm":88.5,"z":"E","ix":107.58},{"cd":182,"t":"2025-07-21","s":89.2,"sm":88.2,"z":"E","ix":108.11},{"cd":183,"t":"2025-07-22","s":89.2,"sm":87.5,"z":"E","ix":107.57},{"cd":184,"t":"2025-07-23","s":89.2,"sm":87.2,"z":"E","ix":108.03},{"cd":185,"t":"2025-07-24","s":89.2,"sm":86.6,"z":"E","ix":108.3},{"cd":186,"t":"2025-07-25","s":89.2,"sm":86.6,"z":"E","ix":108.54},{"cd":189,"t":"2025-07-28","s":89.2,"sm":86.6,"z":"E","ix":108.93},{"cd":190,"t":"2025-07-29","s":89.2,"sm":86.6,"z":"E","ix":108.71},{"cd":191,"t":"2025-07-30","s":89.2,"sm":86.9,"z":"E","ix":108.88},{"cd":192,"t":"2025-07-31","s":81.4,"sm":87.2,"z":"E","ix":108.29},{"cd":193,"t":"2025-08-01","s":75.5,"sm":87.2,"z":"E","ix":106.17},{"cd":196,"t":"2025-08-04","s":89.2,"sm":87.2,"z":"E","ix":108.15},{"cd":197,"t":"2025-08-05","s":75.5,"sm":87.2,"z":"E","ix":107.36},{"cd":198,"t":"2025-08-06","s":83.3,"sm":87.2,"z":"E","ix":108.74},{"cd":199,"t":"2025-08-07","s":75.5,"sm":86.9,"z":"E","ix":109.09},{"cd":200,"t":"2025-08-08","s":89.2,"sm":86.6,"z":"E","ix":110.12},{"cd":203,"t":"2025-08-11","s":89.2,"sm":86.3,"z":"E","ix":109.73},{"cd":204,"t":"2025-08-12","s":89.2,"sm":86.0,"z":"E","ix":111.18},{"cd":205,"t":"2025-08-13","s":95.1,"sm":85.7,"z":"E","ix":111.23},{"cd":206,"t":"2025-08-14","s":95.1,"sm":85.7,"z":"E","ix":111.15},{"cd":207,"t":"2025-08-15","s":89.2,"sm":86.1,"z":"E","ix":110.59},{"cd":210,"t":"2025-08-18","s":89.2,"sm":86.8,"z":"E","ix":110.6},{"cd":211,"t":"2025-08-19","s":89.2,"sm":86.8,"z":"E","ix":109.06},{"cd":212,"t":"2025-08-20","s":89.2,"sm":87.4,"z":"E","ix":108.43},{"cd":213,"t":"2025-08-21","s":83.3,"sm":87.7,"z":"E","ix":107.94},{"cd":214,"t":"2025-08-22","s":83.3,"sm":88.4,"z":"E","ix":109.59},{"cd":217,"t":"2025-08-25","s":83.3,"sm":88.4,"z":"E","ix":109.26},{"cd":218,"t":"2025-08-26","s":83.3,"sm":88.4,"z":"E","ix":109.72},{"cd":219,"t":"2025-08-27","s":83.3,"sm":88.4,"z":"E","ix":109.91},{"cd":220,"t":"2025-08-28","s":89.2,"sm":88.1,"z":"E","ix":110.55},{"cd":221,"t":"2025-08-29","s":89.2,"sm":87.8,"z":"E","ix":109.21},{"cd":225,"t":"2025-09-02","s":89.2,"sm":87.8,"z":"E","ix":108.35},{"cd":226,"t":"2025-09-03","s":89.2,"sm":88.0,"z":"E","ix":109.21},{"cd":227,"t":"2025-09-04","s":89.2,"sm":88.3,"z":"E","ix":110.22},{"cd":228,"t":"2025-09-05","s":89.2,"sm":88.5,"z":"E","ix":110.31},{"cd":231,"t":"2025-09-08","s":89.2,"sm":89.0,"z":"E","ix":110.83},{"cd":232,"t":"2025-09-09","s":89.2,"sm":89.5,"z":"E","ix":111.19},{"cd":233,"t":"2025-09-10","s":89.2,"sm":90.0,"z":"E","ix":111.23},{"cd":234,"t":"2025-09-11","s":89.2,"sm":90.6,"z":"E","ix":111.9},{"cd":235,"t":"2025-09-12","s":89.2,"sm":91.1,"z":"E","ix":112.36},{"cd":238,"t":"2025-09-15","s":89.2,"sm":91.3,"z":"E","ix":113.3},{"cd":239,"t":"2025-09-16","s":89.2,"sm":91.5,"z":"E","ix":113.21},{"cd":240,"t":"2025-09-17","s":94.1,"sm":91.8,"z":"E","ix":112.98},{"cd":241,"t":"2025-09-18","s":94.1,"sm":92.0,"z":"E","ix":114.06},{"cd":242,"t":"2025-09-19","s":94.1,"sm":92.2,"z":"E","ix":114.86},{"cd":245,"t":"2025-09-22","s":94.1,"sm":92.5,"z":"E","ix":115.48},{"cd":246,"t":"2025-09-23","s":94.1,"sm":92.7,"z":"E","ix":114.64},{"cd":247,"t":"2025-09-24","s":94.1,"sm":92.6,"z":"E","ix":114.28},{"cd":248,"t":"2025-09-25","s":94.1,"sm":92.8,"z":"E","ix":113.79},{"cd":249,"t":"2025-09-26","s":94.1,"sm":92.1,"z":"E","ix":114.28},{"cd":252,"t":"2025-09-29","s":94.1,"sm":92.3,"z":"E","ix":114.79},{"cd":253,"t":"2025-09-30","s":94.1,"sm":92.3,"z":"E","ix":115.11},{"cd":254,"t":"2025-10-01","s":94.1,"sm":92.0,"z":"E","ix":115.67},{"cd":255,"t":"2025-10-02","s":94.1,"sm":90.7,"z":"E","ix":116.1},{"cd":256,"t":"2025-10-03","s":94.1,"sm":90.1,"z":"E","ix":115.6},{"cd":259,"t":"2025-10-06","s":94.1,"sm":89.7,"z":"E","ix":116.5},{"cd":260,"t":"2025-10-07","s":94.1,"sm":89.7,"z":"E","ix":115.85},{"cd":261,"t":"2025-10-08","s":86.3,"sm":89.7,"z":"E","ix":117.24},{"cd":262,"t":"2025-10-09","s":94.1,"sm":89.7,"z":"E","ix":117.06},{"cd":263,"t":"2025-10-10","s":74.5,"sm":89.7,"z":"E","ix":112.97},{"cd":266,"t":"2025-10-13","s":94.1,"sm":89.7,"z":"E","ix":115.43},{"cd":267,"t":"2025-10-14","s":88.2,"sm":90.0,"z":"E","ix":114.64},{"cd":268,"t":"2025-10-15","s":82.4,"sm":90.3,"z":"E","ix":115.41},{"cd":269,"t":"2025-10-16","s":68.6,"sm":90.6,"z":"U","ix":115.0},{"cd":270,"t":"2025-10-17","s":80.4,"sm":90.8,"z":"E","ix":115.75},{"cd":273,"t":"2025-10-20","s":86.3,"sm":91.1,"z":"E","ix":117.26},{"cd":274,"t":"2025-10-21","s":94.1,"sm":90.8,"z":"E","ix":117.19},{"cd":275,"t":"2025-10-22","s":94.1,"sm":90.8,"z":"E","ix":116.03},{"cd":276,"t":"2025-10-23","s":94.1,"sm":90.8,"z":"E","ix":117.05},{"cd":277,"t":"2025-10-24","s":94.1,"sm":90.6,"z":"E","ix":118.27},{"cd":280,"t":"2025-10-27","s":94.1,"sm":91.2,"z":"E","ix":120.43},{"cd":281,"t":"2025-10-28","s":100,"sm":90.9,"z":"E","ix":121.32},{"cd":282,"t":"2025-10-29","s":100,"sm":90.9,"z":"E","ix":121.82},{"cd":283,"t":"2025-10-30","s":100,"sm":90.9,"z":"E","ix":120.03},{"cd":284,"t":"2025-10-31","s":100,"sm":91.8,"z":"E","ix":120.6},{"cd":287,"t":"2025-11-03","s":100,"sm":91.5,"z":"E","ix":121.14},{"cd":288,"t":"2025-11-04","s":86.3,"sm":90.9,"z":"E","ix":118.63},{"cd":289,"t":"2025-11-05","s":94.1,"sm":90.0,"z":"E","ix":119.49},{"cd":290,"t":"2025-11-06","s":88.2,"sm":88.4,"z":"E","ix":117.2},{"cd":291,"t":"2025-11-07","s":88.2,"sm":87.1,"z":"E","ix":116.88},{"cd":294,"t":"2025-11-10","s":88.2,"sm":86.2,"z":"E","ix":119.45},{"cd":295,"t":"2025-11-11","s":88.2,"sm":85.5,"z":"E","ix":119.09},{"cd":296,"t":"2025-11-12","s":88.2,"sm":84.9,"z":"E","ix":119.01},{"cd":297,"t":"2025-11-13","s":82.4,"sm":84.2,"z":"E","ix":116.57},{"cd":298,"t":"2025-11-14","s":86.3,"sm":83.8,"z":"E","ix":116.64},{"cd":301,"t":"2025-11-17","s":74.5,"sm":83.8,"z":"E","ix":115.67},{"cd":302,"t":"2025-11-18","s":74.5,"sm":83.8,"z":"E","ix":114.28},{"cd":303,"t":"2025-11-19","s":74.5,"sm":84.5,"z":"E","ix":114.92},{"cd":304,"t":"2025-11-20","s":60.8,"sm":84.8,"z":"U","ix":112.19},{"cd":305,"t":"2025-11-21","s":66.7,"sm":85.1,"z":"U","ix":113.05},{"cd":308,"t":"2025-11-24","s":74.5,"sm":85.3,"z":"E","ix":116.01},{"cd":309,"t":"2025-11-25","s":80.4,"sm":85.6,"z":"E","ix":116.68},{"cd":310,"t":"2025-11-26","s":86.3,"sm":85.9,"z":"E","ix":117.7},{"cd":312,"t":"2025-11-28","s":86.3,"sm":86.2,"z":"E","ix":118.63},{"cd":315,"t":"2025-12-01","s":92.2,"sm":86.7,"z":"E","ix":118.2},{"cd":316,"t":"2025-12-02","s":100,"sm":86.8,"z":"E","ix":119.19},{"cd":317,"t":"2025-12-03","s":100,"sm":87.5,"z":"E","ix":119.43},{"cd":318,"t":"2025-12-04","s":100,"sm":88.1,"z":"E","ix":119.31},{"cd":319,"t":"2025-12-05","s":100,"sm":88.8,"z":"E","ix":119.83},{"cd":322,"t":"2025-12-08","s":94.1,"sm":90.1,"z":"E","ix":119.53},{"cd":323,"t":"2025-12-09","s":94.1,"sm":91.1,"z":"E","ix":119.72},{"cd":324,"t":"2025-12-10","s":94.1,"sm":92.1,"z":"E","ix":120.22},{"cd":325,"t":"2025-12-11","s":94.1,"sm":93.0,"z":"E","ix":119.8},{"cd":326,"t":"2025-12-12","s":94.1,"sm":93.6,"z":"E","ix":117.52},{"cd":329,"t":"2025-12-15","s":94.1,"sm":94.0,"z":"E","ix":116.91},{"cd":330,"t":"2025-12-16","s":88.2,"sm":94.1,"z":"E","ix":117.22},{"cd":331,"t":"2025-12-17","s":88.2,"sm":93.8,"z":"E","ix":114.95},{"cd":332,"t":"2025-12-18","s":88.2,"sm":93.3,"z":"E","ix":116.69},{"cd":333,"t":"2025-12-19","s":88.2,"sm":92.7,"z":"E","ix":118.21},{"cd":336,"t":"2025-12-22","s":88.2,"sm":92.4,"z":"E","ix":118.75},{"cd":337,"t":"2025-12-23","s":88.2,"sm":92.4,"z":"E","ix":119.34},{"cd":338,"t":"2025-12-24","s":94.1,"sm":92.4,"z":"E","ix":119.66},{"cd":340,"t":"2025-12-26","s":100,"sm":92.4,"z":"E","ix":119.6},{"cd":343,"t":"2025-12-29","s":100,"sm":92.4,"z":"E","ix":119.05},{"cd":344,"t":"2025-12-30","s":94.1,"sm":92.4,"z":"E","ix":118.76},{"cd":345,"t":"2025-12-31","s":94.1,"sm":92.4,"z":"E","ix":117.76},{"cd":347,"t":"2026-01-02","s":94.1,"sm":92.7,"z":"E","ix":117.56},{"cd":350,"t":"2026-01-05","s":88.2,"sm":92.4,"z":"E","ix":118.47},{"cd":351,"t":"2026-01-06","s":88.2,"sm":92.4,"z":"E","ix":119.58},{"cd":352,"t":"2026-01-07","s":94.1,"sm":92.4,"z":"E","ix":119.65},{"cd":353,"t":"2026-01-08","s":94.1,"sm":92.4,"z":"E","ix":118.96},{"cd":354,"t":"2026-01-09","s":94.1,"sm":92.4,"z":"E","ix":120.17},{"cd":357,"t":"2026-01-12","s":94.1,"sm":92.4,"z":"E","ix":120.27},{"cd":358,"t":"2026-01-13","s":94.1,"sm":92.1,"z":"E","ix":120.06},{"cd":359,"t":"2026-01-14","s":94.1,"sm":91.9,"z":"E","ix":118.77},{"cd":360,"t":"2026-01-15","s":94.1,"sm":91.9,"z":"E","ix":119.15},{"cd":361,"t":"2026-01-16","s":94.1,"sm":91.9,"z":"E","ix":119.07},{"cd":365,"t":"2026-01-20","s":82.4,"sm":91.9,"z":"E","ix":116.54},{"cd":366,"t":"2026-01-21","s":88.2,"sm":91.9,"z":"E","ix":118.12},{"cd":367,"t":"2026-01-22","s":88.2,"sm":91.2,"z":"E","ix":119.02},{"cd":368,"t":"2026-01-23","s":88.2,"sm":90.6,"z":"E","ix":119.42},{"cd":371,"t":"2026-01-26","s":88.2,"sm":90.4,"z":"E","ix":119.92},{"cd":372,"t":"2026-01-27","s":94.1,"sm":90.1,"z":"E","ix":120.98},{"cd":373,"t":"2026-01-28","s":94.1,"sm":89.8,"z":"E","ix":121.37},{"cd":374,"t":"2026-01-29","s":94.1,"sm":89.5,"z":"E","ix":120.72},{"cd":375,"t":"2026-01-30","s":94.1,"sm":89.2,"z":"E","ix":119.17},{"cd":378,"t":"2026-02-02","s":94.1,"sm":89.0,"z":"E","ix":120.04},{"cd":379,"t":"2026-02-03","s":94.1,"sm":89.0,"z":"E","ix":118.18},{"cd":380,"t":"2026-02-04","s":88.2,"sm":89.0,"z":"E","ix":116.09},{"cd":381,"t":"2026-02-05","s":74.5,"sm":89.0,"z":"E","ix":114.49},{"cd":382,"t":"2026-02-06","s":82.4,"sm":88.7,"z":"E","ix":116.95},{"cd":385,"t":"2026-02-09","s":88.2,"sm":89.0,"z":"E","ix":117.85},{"cd":386,"t":"2026-02-10","s":88.2,"sm":89.2,"z":"E","ix":117.19},{"cd":387,"t":"2026-02-11","s":88.2,"sm":89.2,"z":"E","ix":117.54},{"cd":388,"t":"2026-02-12","s":88.2,"sm":89.2,"z":"E","ix":115.14},{"cd":389,"t":"2026-02-13","s":88.2,"sm":89.0,"z":"E","ix":115.35},{"cd":393,"t":"2026-02-17","s":88.2,"sm":88.3,"z":"E","ix":115.21},{"cd":394,"t":"2026-02-18","s":94.1,"sm":87.7,"z":"E","ix":116.13},{"cd":395,"t":"2026-02-19","s":82.4,"sm":87.4,"z":"E","ix":115.65},{"cd":396,"t":"2026-02-20","s":88.2,"sm":87.1,"z":"E","ix":116.66},{"cd":399,"t":"2026-02-23","s":82.4,"sm":87.2,"z":"E","ix":115.24},{"cd":400,"t":"2026-02-24","s":94.1,"sm":87.5,"z":"E","ix":116.49},{"cd":401,"t":"2026-02-25","s":94.1,"sm":87.5,"z":"E","ix":118.13},{"cd":402,"t":"2026-02-26","s":94.1,"sm":86.8,"z":"E","ix":116.76},{"cd":403,"t":"2026-02-27","s":94.1,"sm":85.8,"z":"E","ix":116.41},{"cd":406,"t":"2026-03-02","s":88.2,"sm":85.5,"z":"E","ix":116.56},{"cd":407,"t":"2026-03-03","s":80.4,"sm":84.9,"z":"E","ix":115.29},{"cd":408,"t":"2026-03-04","s":80.4,"sm":83.6,"z":"E","ix":117.04},{"cd":409,"t":"2026-03-05","s":88.2,"sm":82.3,"z":"E","ix":116.69},{"cd":410,"t":"2026-03-06","s":82.4,"sm":80.9,"z":"E","ix":114.93},{"cd":413,"t":"2026-03-09","s":76.5,"sm":79.2,"z":"E","ix":116.45},{"cd":414,"t":"2026-03-10","s":88.2,"sm":77.8,"z":"E","ix":116.4},{"cd":415,"t":"2026-03-11","s":88.2,"sm":75.8,"z":"E","ix":116.43},{"cd":416,"t":"2026-03-12","s":74.5,"sm":73.5,"z":"E","ix":114.42},{"cd":417,"t":"2026-03-13","s":66.7,"sm":71.1,"z":"U","ix":113.71},{"cd":420,"t":"2026-03-16","s":82.4,"sm":68.8,"z":"E","ix":114.99},{"cd":421,"t":"2026-03-17","s":74.5,"sm":66.8,"z":"E","ix":115.57},{"cd":422,"t":"2026-03-18","s":60.8,"sm":65.7,"z":"U","ix":113.92},{"cd":423,"t":"2026-03-19","s":66.7,"sm":64.7,"z":"U","ix":113.59},{"cd":424,"t":"2026-03-20","s":52.9,"sm":63.6,"z":"U","ix":111.46},{"cd":427,"t":"2026-03-23","s":52.9,"sm":62.5,"z":"U","ix":112.81},{"cd":428,"t":"2026-03-24","s":52.9,"sm":62.9,"z":"U","ix":111.95},{"cd":429,"t":"2026-03-25","s":52.9,"sm":63.1,"z":"U","ix":112.69},{"cd":430,"t":"2026-03-26","s":45.1,"sm":63.3,"z":"U","ix":110.01},{"cd":431,"t":"2026-03-27","s":45.1,"sm":64.1,"z":"U","ix":107.89},{"cd":434,"t":"2026-03-30","s":45.1,"sm":65.4,"z":"U","ix":107.05},{"cd":435,"t":"2026-03-31","s":45.1,"sm":66.1,"z":"U","ix":110.72},{"cd":436,"t":"2026-04-01","s":58.8,"sm":67.2,"z":"U","ix":112.03},{"cd":437,"t":"2026-04-02","s":58.8,"sm":69.1,"z":"U","ix":112.15},{"cd":441,"t":"2026-04-06","s":64.7,"sm":70.7,"z":"U","ix":112.83},{"cd":442,"t":"2026-04-07","s":58.8,"sm":72.9,"z":"U","ix":112.88},{"cd":443,"t":"2026-04-08","s":86.3,"sm":75.2,"z":"E","ix":116.15},{"cd":444,"t":"2026-04-09","s":92.2,"sm":77.4,"z":"E","ix":116.98},{"cd":445,"t":"2026-04-10","s":92.2,"sm":79.6,"z":"E","ix":117.14},{"cd":448,"t":"2026-04-13","s":92.2,"sm":82.3,"z":"E","ix":118.39},{"cd":449,"t":"2026-04-14","s":92.2,"sm":84.9,"z":"E","ix":120.53},{"cd":450,"t":"2026-04-15","s":98,"sm":87.2,"z":"E","ix":122.22},{"cd":451,"t":"2026-04-16","s":98,"sm":89.8,"z":"E","ix":122.82},{"cd":452,"t":"2026-04-17","s":100,"sm":91.6,"z":"E","ix":124.4},{"cd":455,"t":"2026-04-20","s":100,"sm":93.4,"z":"E","ix":124.02},{"cd":456,"t":"2026-04-21","s":100,"sm":94.9,"z":"E","ix":123.5},{"cd":457,"t":"2026-04-22","s":100,"sm":96.8,"z":"E","ix":125.63},{"cd":458,"t":"2026-04-23","s":100,"sm":96.7,"z":"E","ix":124.91},{"cd":459,"t":"2026-04-24","s":100,"sm":97.1,"z":"E","ix":127.34},{"cd":462,"t":"2026-04-27","s":100,"sm":97.4,"z":"E","ix":127.35},{"cd":463,"t":"2026-04-28","s":100,"sm":97.0,"z":"E","ix":126.06},{"cd":464,"t":"2026-04-29","s":94.1,"sm":97.4,"z":"E","ix":126.8},{"cd":465,"t":"2026-04-30","s":100,"sm":97.5,"z":"E","ix":128.03},{"cd":466,"t":"2026-05-01","s":96.1,"sm":95.9,"z":"E","ix":129.24},{"cd":469,"t":"2026-05-04","s":96.1,"sm":95.0,"z":"E","ix":128.97},{"cd":470,"t":"2026-05-05","s":96.1,"sm":94.0,"z":"E","ix":130.66},{"cd":471,"t":"2026-05-06","s":100,"sm":93.0,"z":"E","ix":133.38},{"cd":472,"t":"2026-05-07","s":83.1,"sm":91.0,"z":"E","ix":133.22},{"cd":473,"t":"2026-05-08","s":100,"sm":90.0,"z":"E","ix":136.35},{"cd":476,"t":"2026-05-11","s":100,"sm":89.8,"z":"E","ix":136.75},{"cd":477,"t":"2026-05-12","s":83.1,"sm":89.6,"z":"E","ix":135.56},{"cd":478,"t":"2026-05-13","s":100,"sm":89.6,"z":"E","ix":136.97},{"cd":479,"t":"2026-05-14","s":100,"sm":89.9,"z":"E","ix":137.96},{"cd":480,"t":"2026-05-15","s":66.2,"sm":89.9,"z":"U","ix":135.84},{"cd":483,"t":"2026-05-18","s":79.2,"sm":90.1,"z":"E","ix":135.23},{"cd":484,"t":"2026-05-19","s":79.2,"sm":90.3,"z":"E","ix":134.41},{"cd":485,"t":"2026-05-20","s":79.2,"sm":88.9,"z":"E","ix":136.64},{"cd":486,"t":"2026-05-21","s":58.4,"sm":86.4,"z":"U","ix":136.92},{"cd":487,"t":"2026-05-22","s":79.2,"sm":86.5,"z":"E","ix":137.5},{"cd":491,"t":"2026-05-26","s":96.1,"sm":85.0,"z":"E","ix":139.92},{"cd":492,"t":"2026-05-27","s":96.1,"sm":82.1,"z":"E","ix":139.79},{"cd":493,"t":"2026-05-28","s":100,"sm":80.6,"z":"E","ix":140.96},{"cd":494,"t":"2026-05-29","s":100,"sm":78.3,"z":"E","ix":141.47},{"cd":497,"t":"2026-06-01","s":100,"sm":76.8,"z":"E","ix":142.31},{"cd":498,"t":"2026-06-02","s":100,"sm":76.3,"z":"E","ix":143.0},{"cd":499,"t":"2026-06-03","s":100,"sm":76.8,"z":"E","ix":142.58},{"cd":500,"t":"2026-06-04","s":66.2,"sm":77.2,"z":"U","ix":141.82},{"cd":501,"t":"2026-06-05","s":48.1,"sm":77.7,"z":"U","ix":135.06},{"cd":504,"t":"2026-06-08","s":85.7,"sm":77.4,"z":"E","ix":137.19},{"cd":505,"t":"2026-06-09","s":68.8,"sm":77.8,"z":"U","ix":135.65},{"cd":506,"t":"2026-06-10","s":37.7,"sm":77.3,"z":"H","ix":132.96},{"cd":507,"t":"2026-06-11","s":51.9,"sm":74.9,"z":"U","ix":137.33},{"cd":508,"t":"2026-06-12","s":51.9,"sm":72.4,"z":"U","ix":138.22},{"cd":511,"t":"2026-06-15","s":68.8,"sm":70.9,"z":"U","ix":142.45},{"cd":512,"t":"2026-06-16","s":55.8,"sm":68.6,"z":"U","ix":139.77},{"cd":513,"t":"2026-06-17","s":89.6,"sm":66.5,"z":"E","ix":138.38},{"cd":514,"t":"2026-06-18","s":88.3,"sm":64.4,"z":"E","ix":141.81},{"cd":518,"t":"2026-06-22","s":88.3,"sm":63.9,"z":"E","ix":141.54},{"cd":519,"t":"2026-06-23","s":51.9,"sm":64.2,"z":"U","ix":136.87},{"cd":520,"t":"2026-06-24","s":89.6,"sm":62.6,"z":"E","ix":136.28},{"cd":521,"t":"2026-06-25","s":84.4,"sm":62.0,"z":"E","ix":137.31},{"cd":522,"t":"2026-06-26","s":46.8,"sm":63.2,"z":"U","ix":135.81},{"cd":525,"t":"2026-06-29","s":46.8,"sm":63.8,"z":"U","ix":138.87},{"cd":526,"t":"2026-06-30","s":68.8,"sm":64.5,"z":"U","ix":141.21},{"cd":527,"t":"2026-07-01","s":50.6,"sm":64.2,"z":"U","ix":139.03},{"cd":528,"t":"2026-07-02","s":55.8,"sm":64.7,"z":"U","ix":136.79},{"cd":532,"t":"2026-07-06","s":55.8,"sm":63.1,"z":"U","ix":138.51},{"cd":533,"t":"2026-07-07","s":55.8,"sm":61.3,"z":"U","ix":136.06},{"cd":534,"t":"2026-07-08","s":55.8,"sm":59.2,"z":"U","ix":136.43},{"cd":535,"t":"2026-07-09","s":51.9,"sm":59.8,"z":"U","ix":138.65},{"cd":536,"t":"2026-07-10","s":55.8,"sm":57.1,"z":"U","ix":139.1}],"terms":[{"name":"Coolidge","cn":"柯立芝","party":"R","era":"戰前","tier":"B","inaug":"1925-03-04","end":"1929-03-04","election":"1924-11-04","zones":[{"cd0":3,"cd1":367,"z":"E","own0":"1925-03-07","own1":"1926-02-27","note":"咆哮20年代牛市啟動"},{"cd0":367,"cd1":458,"z":"U","own0":"1926-03-06","own1":"1926-05-29","note":"1926年3月回調（佛州地產泡沫破裂）"},{"cd0":458,"cd1":1466,"z":"E","own0":"1926-06-05","own1":"1929-03-02","note":"信貸與槓桿狂潮；道指四年約 +170%"}],"transitions":[{"cd":367,"own":"1926-03-06","anchor":"2026-01-22","frm":"E","to":"U","reason":"1926年3月回調（佛州地產泡沫破裂）","event":null},{"cd":458,"own":"1926-06-05","anchor":"2026-04-23","frm":"U","to":"E","reason":"信貸與槓桿狂潮；道指四年約 +170%","event":null}],"at_now":{"own":"1926-08-21","v":92,"z":"E"},"trough":{"date":"1926-03-30","cd":391,"year":"第2年","month":3,"note":"1926年3月回調低點（任內無大型底部）","midterm_low":null,"anchor":"2026-02-15"}},{"name":"Hoover","cn":"胡佛","party":"R","era":"戰前","tier":"B","inaug":"1929-03-04","end":"1933-03-04","election":"1928-11-06","zones":[{"cd0":-116,"cd1":3,"z":"E","own0":"1928-11-08","own1":"1929-02-28","note":"投機頂峰前最後段（柯立芝任內）"},{"cd0":3,"cd1":185,"z":"U","own0":"1929-03-07","own1":"1929-08-29","note":"衝頂但貨幣已收緊（9/3 見頂 381）"},{"cd0":185,"cd1":255,"z":"H","own0":"1929-09-05","own1":"1929-11-07","note":"★1929大崩盤（黑色星期二）；11/13 見 198"},{"cd0":255,"cd1":409,"z":"U","own0":"1929-11-14","own1":"1930-04-10","note":"熊市反彈 +48% 至 1930/4/17"},{"cd0":409,"cd1":1228,"z":"H","own0":"1930-04-17","own1":"1932-07-07","note":"債務通縮崩潰；1932/7/8 見底 41，累計 -89%"},{"cd0":1228,"cd1":1284,"z":"U","own0":"1932-07-14","own1":"1932-09-01","note":"見底暴力反彈 +93%"},{"cd0":1284,"cd1":1466,"z":"H","own0":"1932-09-08","own1":"1933-03-02","note":"銀行危機再探底（1933/2/27）"}],"transitions":[{"cd":3,"own":"1929-03-07","anchor":"2025-01-23","frm":"E","to":"U","reason":"衝頂但貨幣已收緊（9/3 見頂 381）","event":null},{"cd":185,"own":"1929-09-05","anchor":"2025-07-24","frm":"U","to":"H","reason":"★1929大崩盤（黑色星期二）；11/13 見 198","event":null},{"cd":255,"own":"1929-11-14","anchor":"2025-10-02","frm":"H","to":"U","reason":"熊市反彈 +48% 至 1930/4/17","event":null},{"cd":409,"own":"1930-04-17","anchor":"2026-03-05","frm":"U","to":"H","reason":"債務通縮崩潰；1932/7/8 見底 41，累計 -89%","event":null},{"cd":1228,"own":"1932-07-14","anchor":"2028-06-01","frm":"H","to":"U","reason":"見底暴力反彈 +93%","event":null},{"cd":1284,"own":"1932-09-08","anchor":"2028-07-27","frm":"U","to":"H","reason":"銀行危機再探底（1933/2/27）","event":null}],"at_now":{"own":"1930-08-21","v":10,"z":"H"},"trough":{"date":"1932-07-08","cd":1222,"year":"第4年","month":7,"note":"道指 41.22，自 1929 高點 -89%","midterm_low":null,"anchor":"2028-05-26"}},{"name":"FDR I","cn":"羅斯福 I","party":"D","era":"戰前","tier":"B","inaug":"1933-03-04","end":"1937-01-20","election":"1932-11-08","zones":[{"cd0":-116,"cd1":3,"z":"H","own0":"1932-11-08","own1":"1933-02-28","note":"銀行危機再探底（1933/2/27）（胡佛任內）"},{"cd0":3,"cd1":143,"z":"E","own0":"1933-03-07","own1":"1933-07-18","note":"廢金本位＋新政再通脹＝教科書 Easy"},{"cd0":143,"cd1":248,"z":"U","own0":"1933-07-25","own1":"1933-10-31","note":"夏季急回調"},{"cd0":248,"cd1":1424,"z":"E","own0":"1933-11-07","own1":"1937-01-19","note":"新政再通脹牛市"}],"transitions":[{"cd":3,"own":"1933-03-07","anchor":"2025-01-23","frm":"H","to":"E","reason":"廢金本位＋新政再通脹＝教科書 Easy","event":null},{"cd":143,"own":"1933-07-25","anchor":"2025-06-12","frm":"E","to":"U","reason":"夏季急回調","event":null},{"cd":248,"own":"1933-11-07","anchor":"2025-09-25","frm":"U","to":"E","reason":"新政再通脹牛市","event":null}],"at_now":{"own":"1934-08-21","v":84,"z":"E"},"trough":{"date":"1933-10-21","cd":231,"year":"第1年","month":10,"note":"1933 夏季回調低點","midterm_low":null,"anchor":"2025-09-08"}},{"name":"FDR II","cn":"羅斯福 II","party":"D","era":"戰前","tier":"B","inaug":"1937-01-20","end":"1941-01-20","election":"1936-11-03","zones":[{"cd0":-74,"cd1":3,"z":"E","own0":"1936-11-07","own1":"1937-01-16","note":"新政再通脹牛市（羅斯福 I任內）"},{"cd0":3,"cd1":52,"z":"U","own0":"1937-01-23","own1":"1937-03-06","note":"見頂前（3/10 見頂）"},{"cd0":52,"cd1":437,"z":"H","own0":"1937-03-13","own1":"1938-03-26","note":"★緊縮失誤：準備金上調＋財政緊縮 → -49%"},{"cd0":437,"cd1":661,"z":"E","own0":"1938-04-02","own1":"1938-11-05","note":"再通脹反彈 +60%（第2年見底樣本）"},{"cd0":661,"cd1":955,"z":"U","own0":"1938-11-12","own1":"1939-08-26","note":"反彈後盤整"},{"cd0":955,"cd1":1466,"z":"H","own0":"1939-09-02","own1":"1941-01-18","note":"歐戰爆發、戰事不利"}],"transitions":[{"cd":3,"own":"1937-01-23","anchor":"2025-01-23","frm":"E","to":"U","reason":"見頂前（3/10 見頂）","event":null},{"cd":52,"own":"1937-03-13","anchor":"2025-03-13","frm":"U","to":"H","reason":"★緊縮失誤：準備金上調＋財政緊縮 → -49%","event":null},{"cd":437,"own":"1938-04-02","anchor":"2026-04-02","frm":"H","to":"E","reason":"再通脹反彈 +60%（第2年見底樣本）","event":null},{"cd":661,"own":"1938-11-12","anchor":"2026-11-12","frm":"E","to":"U","reason":"反彈後盤整","event":null},{"cd":955,"own":"1939-09-02","anchor":"2027-09-02","frm":"U","to":"H","reason":"歐戰爆發、戰事不利","event":null}],"at_now":{"own":"1938-07-09","v":84,"z":"E"},"trough":{"date":"1938-03-31","cd":435,"year":"第2年","month":3,"note":"緊縮失誤熊市底 -49%","midterm_low":"1938-03-31","anchor":"2026-03-31"}},{"name":"FDR III","cn":"羅斯福 III","party":"D","era":"戰前","tier":"B","inaug":"1941-01-20","end":"1945-01-20","election":"1940-11-05","zones":[{"cd0":-74,"cd1":465,"z":"H","own0":"1940-11-07","own1":"1942-04-23","note":"開戰潰敗；1942/4/28 見底（第2年樣本）"},{"cd0":465,"cd1":1466,"z":"E","own0":"1942-04-30","own1":"1945-01-18","note":"★Fed 釘住利率＝極致 Easy Money；戰時牛市"}],"transitions":[{"cd":465,"own":"1942-04-30","anchor":"2026-04-30","frm":"H","to":"E","reason":"★Fed 釘住利率＝極致 Easy Money；戰時牛市","event":null}],"at_now":{"own":"1942-07-09","v":92,"z":"E"},"trough":{"date":"1942-04-28","cd":463,"year":"第2年","month":4,"note":"二戰潰敗段底部","midterm_low":"1942-04-28","anchor":"2026-04-28"}},{"name":"FDR IV/Truman","cn":"羅斯福 IV/杜魯門","party":"D","era":"戰後","tier":"B","inaug":"1945-01-20","end":"1949-01-20","election":"1944-11-07","zones":[{"cd0":-74,"cd1":500,"z":"E","own0":"1944-11-07","own1":"1946-05-28","note":"戰勝＋流動性充裕（5/29 見頂）"},{"cd0":500,"cd1":633,"z":"H","own0":"1946-06-04","own1":"1946-10-08","note":"★1946 -27%（第2年樣本）"},{"cd0":633,"cd1":1466,"z":"U","own0":"1946-10-15","own1":"1949-01-18","note":"戰後通脹＋48–49 衰退，長期磨底"}],"transitions":[{"cd":500,"own":"1946-06-04","anchor":"2026-06-04","frm":"E","to":"H","reason":"★1946 -27%（第2年樣本）","event":null},{"cd":633,"own":"1946-10-15","anchor":"2026-10-15","frm":"H","to":"U","reason":"戰後通脹＋48–49 衰退，長期磨底","event":null}],"at_now":{"own":"1946-07-09","v":20,"z":"H"},"trough":{"date":"1946-10-09","cd":627,"year":"第2年","month":10,"note":"1946 -27% 底","midterm_low":"1946-10-09","anchor":"2026-10-09"}},{"name":"Truman","cn":"杜魯門","party":"D","era":"戰後","tier":"B","inaug":"1949-01-20","end":"1953-01-20","election":"1948-11-02","zones":[{"cd0":-74,"cd1":150,"z":"U","own0":"1948-11-07","own1":"1949-06-12","note":"1949 衰退尾段（6/13 見底）"},{"cd0":150,"cd1":521,"z":"E","own0":"1949-06-19","own1":"1950-06-18","note":"新牛市啟動"},{"cd0":521,"cd1":549,"z":"H","own0":"1950-06-25","own1":"1950-07-16","note":"韓戰爆發急跌"},{"cd0":549,"cd1":1466,"z":"E","own0":"1950-07-23","own1":"1953-01-18","note":"★1951 財政部-Fed 協議＝現代貨幣週期起點"}],"transitions":[{"cd":150,"own":"1949-06-19","anchor":"2025-06-19","frm":"U","to":"E","reason":"新牛市啟動","event":null},{"cd":521,"own":"1950-06-25","anchor":"2026-06-25","frm":"E","to":"H","reason":"韓戰爆發急跌","event":null},{"cd":549,"own":"1950-07-23","anchor":"2026-07-23","frm":"H","to":"E","reason":"★1951 財政部-Fed 協議＝現代貨幣週期起點","event":null}],"at_now":{"own":"1950-07-09","v":30,"z":"H"},"trough":{"date":"1949-06-13","cd":144,"year":"第1年","month":6,"note":"1949 衰退底","midterm_low":null,"anchor":"2025-06-13"}},{"name":"Eisenhower I","cn":"艾森豪 I","party":"R","era":"戰後","tier":"B","inaug":"1953-01-20","end":"1957-01-20","election":"1952-11-04","zones":[{"cd0":-74,"cd1":-18,"z":"E","own0":"1952-11-07","own1":"1952-12-26","note":"★1951 財政部-Fed 協議＝現代貨幣週期起點（杜魯門任內）"},{"cd0":-18,"cd1":241,"z":"H","own0":"1953-01-02","own1":"1953-09-11","note":"第1年衰退（9/14 見底）"},{"cd0":241,"cd1":1179,"z":"E","own0":"1953-09-18","own1":"1956-04-06","note":"1954 +45%，戰後大牛"},{"cd0":1179,"cd1":1466,"z":"U","own0":"1956-04-13","own1":"1957-01-18","note":"加息＋盤整"}],"transitions":[{"cd":-18,"own":"1953-01-02","anchor":"2025-01-02","frm":"E","to":"H","reason":"韓戰尾段緊縮（杜魯門任內）","event":null},{"cd":241,"own":"1953-09-18","anchor":"2025-09-18","frm":"H","to":"E","reason":"1954 +45%，戰後大牛","event":null},{"cd":1179,"own":"1956-04-13","anchor":"2028-04-13","frm":"E","to":"U","reason":"加息＋盤整","event":null}],"at_now":{"own":"1954-07-09","v":92,"z":"E"},"trough":{"date":"1953-09-14","cd":237,"year":"第1年","month":9,"note":"第1年衰退底","midterm_low":null,"anchor":"2025-09-14"}},{"name":"Eisenhower II","cn":"艾森豪 II","party":"R","era":"戰後","tier":"B","inaug":"1957-01-20","end":"1961-01-20","election":"1956-11-06","zones":[{"cd0":-74,"cd1":3,"z":"U","own0":"1956-11-07","own1":"1957-01-16","note":"加息＋盤整（艾森豪 I任內）"},{"cd0":3,"cd1":276,"z":"H","own0":"1957-01-23","own1":"1957-10-16","note":"1957 衰退 -21%（10/22 見底）"},{"cd0":276,"cd1":1081,"z":"E","own0":"1957-10-23","own1":"1959-12-30","note":"1958–59 復甦牛"},{"cd0":1081,"cd1":1375,"z":"H","own0":"1960-01-06","own1":"1960-10-19","note":"1960 衰退（10/25 見底）"},{"cd0":1375,"cd1":1466,"z":"E","own0":"1960-10-26","own1":"1961-01-18","note":"選後回升"}],"transitions":[{"cd":3,"own":"1957-01-23","anchor":"2025-01-23","frm":"U","to":"H","reason":"1957 衰退 -21%（10/22 見底）","event":null},{"cd":276,"own":"1957-10-23","anchor":"2025-10-23","frm":"H","to":"E","reason":"1958–59 復甦牛","event":null},{"cd":1081,"own":"1960-01-06","anchor":"2028-01-06","frm":"E","to":"H","reason":"1960 衰退（10/25 見底）","event":null},{"cd":1375,"own":"1960-10-26","anchor":"2028-10-26","frm":"H","to":"E","reason":"選後回升","event":null}],"at_now":{"own":"1958-07-09","v":84,"z":"E"},"trough":{"date":"1957-10-22","cd":275,"year":"第1年","month":10,"note":"1957 衰退 -21% 底","midterm_low":null,"anchor":"2025-10-22"}},{"name":"JFK/LBJ","cn":"甘迺迪/詹森","party":"D","era":"戰後","tier":"B","inaug":"1961-01-20","end":"1965-01-20","election":"1960-11-08","zones":[{"cd0":-67,"cd1":332,"z":"E","own0":"1960-11-14","own1":"1961-12-11","note":"蜜月牛市（12/12 見頂）"},{"cd0":332,"cd1":528,"z":"H","own0":"1961-12-18","own1":"1962-06-25","note":"★1962 閃崩 -28%（第2年樣本；6/26 見底）"},{"cd0":528,"cd1":647,"z":"U","own0":"1962-07-02","own1":"1962-10-22","note":"古巴導彈危機"},{"cd0":647,"cd1":1466,"z":"E","own0":"1962-10-29","own1":"1965-01-18","note":"1963–64 牛市"}],"transitions":[{"cd":332,"own":"1961-12-18","anchor":"2025-12-18","frm":"E","to":"H","reason":"★1962 閃崩 -28%（第2年樣本；6/26 見底）","event":null},{"cd":528,"own":"1962-07-02","anchor":"2026-07-02","frm":"H","to":"U","reason":"古巴導彈危機","event":null},{"cd":647,"own":"1962-10-29","anchor":"2026-10-29","frm":"U","to":"E","reason":"1963–64 牛市","event":null}],"at_now":{"own":"1962-07-09","v":45,"z":"U"},"trough":{"date":"1962-06-26","cd":522,"year":"第2年","month":6,"note":"1962 閃崩 -28% 底","midterm_low":"1962-06-26","anchor":"2026-06-26"}},{"name":"LBJ","cn":"詹森","party":"D","era":"戰後","tier":"B","inaug":"1965-01-20","end":"1969-01-20","election":"1964-11-03","zones":[{"cd0":-74,"cd1":388,"z":"E","own0":"1964-11-07","own1":"1966-02-05","note":"續牛（2/9 見頂）"},{"cd0":388,"cd1":626,"z":"H","own0":"1966-02-12","own1":"1966-10-01","note":"★1966 信貸緊縮 -22%（第2年樣本；10/7 見底）"},{"cd0":626,"cd1":1410,"z":"E","own0":"1966-10-08","own1":"1968-11-23","note":"1967–68 反彈（11/29 見頂）"},{"cd0":1410,"cd1":1466,"z":"U","own0":"1968-11-30","own1":"1969-01-18","note":"通脹緊縮開始"}],"transitions":[{"cd":388,"own":"1966-02-12","anchor":"2026-02-12","frm":"E","to":"H","reason":"★1966 信貸緊縮 -22%（第2年樣本；10/7 見底）","event":null},{"cd":626,"own":"1966-10-08","anchor":"2026-10-08","frm":"H","to":"E","reason":"1967–68 反彈（11/29 見頂）","event":null},{"cd":1410,"own":"1968-11-30","anchor":"2028-11-30","frm":"E","to":"U","reason":"通脹緊縮開始","event":null}],"at_now":{"own":"1966-07-09","v":20,"z":"H"},"trough":{"date":"1966-10-07","cd":625,"year":"第2年","month":10,"note":"1966 信貸緊縮 -22% 底","midterm_low":"1966-10-07","anchor":"2026-10-07"}},{"name":"Nixon I","cn":"尼克遜 I","party":"R","era":"滯脹","tier":"B","inaug":"1969-01-20","end":"1973-01-20","election":"1968-11-05","zones":[{"cd0":-74,"cd1":-46,"z":"E","own0":"1968-11-07","own1":"1968-11-28","note":"1967–68 反彈（11/29 見頂）（詹森任內）"},{"cd0":-46,"cd1":3,"z":"U","own0":"1968-12-05","own1":"1969-01-16","note":"通脹緊縮開始（詹森任內）"},{"cd0":3,"cd1":493,"z":"H","own0":"1969-01-23","own1":"1970-05-21","note":"緊縮 -36%（5/26 見底；第2年樣本）"},{"cd0":493,"cd1":654,"z":"U","own0":"1970-05-28","own1":"1970-10-29","note":"見底修復"},{"cd0":654,"cd1":1466,"z":"E","own0":"1970-11-05","own1":"1973-01-18","note":"★Burns 為連任放水＝『政治性 Easy Money』原型"}],"transitions":[{"cd":-46,"own":"1968-12-05","anchor":"2024-12-05","frm":"E","to":"U","reason":"通脹緊縮開始（詹森任內）","event":null},{"cd":3,"own":"1969-01-23","anchor":"2025-01-23","frm":"U","to":"H","reason":"緊縮 -36%（5/26 見底；第2年樣本）","event":null},{"cd":493,"own":"1970-05-28","anchor":"2026-05-28","frm":"H","to":"U","reason":"見底修復","event":null},{"cd":654,"own":"1970-11-05","anchor":"2026-11-05","frm":"U","to":"E","reason":"★Burns 為連任放水＝『政治性 Easy Money』原型","event":null}],"at_now":{"own":"1970-07-09","v":58,"z":"U"},"trough":{"date":"1970-05-26","cd":491,"year":"第2年","month":5,"note":"1969-70 緊縮 -36% 底","midterm_low":"1970-05-26","anchor":"2026-05-26"}},{"name":"Nixon II/Ford","cn":"尼克遜 II/福特","party":"R","era":"滯脹","tier":"B","inaug":"1973-01-20","end":"1977-01-20","election":"1972-11-07","zones":[{"cd0":-74,"cd1":3,"z":"E","own0":"1972-11-07","own1":"1973-01-16","note":"★Burns 為連任放水＝『政治性 Easy Money』原型（尼克遜 I任內）"},{"cd0":3,"cd1":689,"z":"H","own0":"1973-01-23","own1":"1974-12-03","note":"★石油禁運＋滯脹 -48%（1974/12 見底）"},{"cd0":689,"cd1":1347,"z":"E","own0":"1974-12-10","own1":"1976-09-21","note":"1975 +38%（9/21 見頂）"},{"cd0":1347,"cd1":1466,"z":"U","own0":"1976-09-28","own1":"1977-01-18","note":"選後盤整"}],"transitions":[{"cd":3,"own":"1973-01-23","anchor":"2025-01-23","frm":"E","to":"H","reason":"★石油禁運＋滯脹 -48%（1974/12 見底）","event":null},{"cd":689,"own":"1974-12-10","anchor":"2026-12-10","frm":"H","to":"E","reason":"1975 +38%（9/21 見頂）","event":null},{"cd":1347,"own":"1976-09-28","anchor":"2028-09-28","frm":"E","to":"U","reason":"選後盤整","event":null}],"at_now":{"own":"1974-07-09","v":10,"z":"H"},"trough":{"date":"1974-12-06","cd":685,"year":"第2年","month":12,"note":"石油禁運熊市 -48% 底","midterm_low":"1974-12-06","anchor":"2026-12-06"}},{"name":"Carter","cn":"卡特","party":"D","era":"滯脹","tier":"B","inaug":"1977-01-20","end":"1981-01-20","election":"1976-11-02","zones":[{"cd0":-74,"cd1":409,"z":"U","own0":"1976-11-07","own1":"1978-02-26","note":"1977 陰跌"},{"cd0":409,"cd1":990,"z":"E","own0":"1978-03-05","own1":"1979-09-30","note":"名義反彈但通脹升溫"},{"cd0":990,"cd1":1165,"z":"H","own0":"1979-10-07","own1":"1980-03-23","note":"★Volcker 衝擊（第3年例外！通脹壓倒政治週期）"},{"cd0":1165,"cd1":1410,"z":"E","own0":"1980-03-30","own1":"1980-11-23","note":"大選年反彈"},{"cd0":1410,"cd1":1466,"z":"U","own0":"1980-11-30","own1":"1981-01-18","note":"選後轉弱"}],"transitions":[{"cd":409,"own":"1978-03-05","anchor":"2026-03-05","frm":"U","to":"E","reason":"名義反彈但通脹升溫","event":null},{"cd":990,"own":"1979-10-07","anchor":"2027-10-07","frm":"E","to":"H","reason":"★Volcker 衝擊（第3年例外！通脹壓倒政治週期）","event":null},{"cd":1165,"own":"1980-03-30","anchor":"2028-03-30","frm":"H","to":"E","reason":"大選年反彈","event":null},{"cd":1410,"own":"1980-11-30","anchor":"2028-11-30","frm":"E","to":"U","reason":"選後轉弱","event":null}],"at_now":{"own":"1978-07-09","v":72,"z":"E"},"trough":{"date":"1980-03-27","cd":1162,"year":"第4年","month":3,"note":"Volcker 衝擊後底","midterm_low":null,"anchor":"2028-03-27"}},{"name":"Reagan I","cn":"列根 I","party":"R","era":"大緩和","tier":"B","inaug":"1981-01-20","end":"1985-01-20","election":"1980-11-04","zones":[{"cd0":-74,"cd1":-46,"z":"E","own0":"1980-11-07","own1":"1980-11-28","note":"大選年反彈（卡特任內）"},{"cd0":-46,"cd1":3,"z":"U","own0":"1980-12-05","own1":"1981-01-16","note":"選後轉弱（卡特任內）"},{"cd0":3,"cd1":570,"z":"H","own0":"1981-01-23","own1":"1982-08-06","note":"★Volcker 絞殺 -27%（1982/8/12 見底＝最經典中期年樣本）"},{"cd0":570,"cd1":1046,"z":"E","own0":"1982-08-13","own1":"1983-11-25","note":"世代牛市起點"},{"cd0":1046,"cd1":1284,"z":"U","own0":"1983-12-02","own1":"1984-07-20","note":"1984 盤整"},{"cd0":1284,"cd1":1466,"z":"E","own0":"1984-07-27","own1":"1985-01-18","note":"重啟升勢"}],"transitions":[{"cd":-46,"own":"1980-12-05","anchor":"2024-12-05","frm":"E","to":"U","reason":"選後轉弱（卡特任內）","event":null},{"cd":3,"own":"1981-01-23","anchor":"2025-01-23","frm":"U","to":"H","reason":"★Volcker 絞殺 -27%（1982/8/12 見底＝最經典中期年樣本）","event":null},{"cd":570,"own":"1982-08-13","anchor":"2026-08-13","frm":"H","to":"E","reason":"世代牛市起點","event":null},{"cd":1046,"own":"1983-12-02","anchor":"2027-12-02","frm":"E","to":"U","reason":"1984 盤整","event":null},{"cd":1284,"own":"1984-07-27","anchor":"2028-07-27","frm":"U","to":"E","reason":"重啟升勢","event":null}],"at_now":{"own":"1982-07-09","v":20,"z":"H"},"trough":{"date":"1982-08-12","cd":569,"year":"第2年","month":8,"note":"Volcker 絞殺底＝世代牛市起點","midterm_low":"1982-08-12","anchor":"2026-08-12"}},{"name":"Reagan II","cn":"列根 II","party":"R","era":"大緩和","tier":"B","inaug":"1985-01-20","end":"1989-01-20","election":"1984-11-06","zones":[{"cd0":-74,"cd1":948,"z":"E","own0":"1984-11-07","own1":"1987-08-19","note":"廣場協議寬鬆（8/25 見頂）"},{"cd0":948,"cd1":1053,"z":"H","own0":"1987-08-26","own1":"1987-12-02","note":"★1987 股災 -34%（第3年例外#2）"},{"cd0":1053,"cd1":1466,"z":"E","own0":"1987-12-09","own1":"1989-01-18","note":"股災後修復"}],"transitions":[{"cd":948,"own":"1987-08-26","anchor":"2027-08-26","frm":"E","to":"H","reason":"★1987 股災 -34%（第3年例外#2）","event":null},{"cd":1053,"own":"1987-12-09","anchor":"2027-12-09","frm":"H","to":"E","reason":"股災後修復","event":null}],"at_now":{"own":"1986-07-09","v":92,"z":"E"},"trough":{"date":"1987-12-04","cd":1048,"year":"第3年","month":12,"note":"1987 股災 -34% 底","midterm_low":null,"anchor":"2027-12-04"}},{"name":"Bush 41","cn":"老布殊","party":"R","era":"大緩和","tier":"B","inaug":"1989-01-20","end":"1993-01-20","election":"1988-11-08","zones":[{"cd0":-67,"cd1":549,"z":"E","own0":"1988-11-14","own1":"1990-07-16","note":"續牛（7/16 見頂）"},{"cd0":549,"cd1":633,"z":"H","own0":"1990-07-23","own1":"1990-10-08","note":"★海灣戰爭 -20%（第2年樣本；10/11 見底）"},{"cd0":633,"cd1":1466,"z":"E","own0":"1990-10-15","own1":"1993-01-18","note":"減息週期"}],"transitions":[{"cd":549,"own":"1990-07-23","anchor":"2026-07-23","frm":"E","to":"H","reason":"★海灣戰爭 -20%（第2年樣本；10/11 見底）","event":null},{"cd":633,"own":"1990-10-15","anchor":"2026-10-15","frm":"H","to":"E","reason":"減息週期","event":null}],"at_now":{"own":"1990-07-09","v":84,"z":"E"},"trough":{"date":"1990-10-11","cd":629,"year":"第2年","month":10,"note":"海灣戰爭 -20% 底","midterm_low":"1990-10-11","anchor":"2026-10-11"}},{"name":"Clinton I","cn":"克林頓 I","party":"D","era":"大緩和","tier":"B","inaug":"1993-01-20","end":"1997-01-20","election":"1992-11-03","zones":[{"cd0":-74,"cd1":381,"z":"E","own0":"1992-11-07","own1":"1994-01-29","note":"蜜月續牛"},{"cd0":381,"cd1":689,"z":"U","own0":"1994-02-05","own1":"1994-12-03","note":"★1994 債券大屠殺（第2年）；全年磨底"},{"cd0":689,"cd1":1466,"z":"E","own0":"1994-12-10","own1":"1997-01-18","note":"★1995 +34%＝現代最強第3年"}],"transitions":[{"cd":381,"own":"1994-02-05","anchor":"2026-02-05","frm":"E","to":"U","reason":"★1994 債券大屠殺（第2年）；全年磨底","event":null},{"cd":689,"own":"1994-12-10","anchor":"2026-12-10","frm":"U","to":"E","reason":"★1995 +34%＝現代最強第3年","event":null}],"at_now":{"own":"1994-07-09","v":45,"z":"U"},"trough":{"date":"1994-12-08","cd":687,"year":"第2年","month":12,"note":"1994 債券大屠殺磨底","midterm_low":"1994-12-08","anchor":"2026-12-08"}},{"name":"Clinton II","cn":"克林頓 II","party":"D","era":"科網","tier":"B","inaug":"1997-01-20","end":"2001-01-20","election":"1996-11-05","zones":[{"cd0":-74,"cd1":549,"z":"E","own0":"1996-11-07","own1":"1998-07-16","note":"續牛（7/17 見頂）"},{"cd0":549,"cd1":633,"z":"H","own0":"1998-07-23","own1":"1998-10-08","note":"★LTCM -19%（第2年樣本；10/8 見底）"},{"cd0":633,"cd1":1165,"z":"E","own0":"1998-10-15","own1":"2000-03-23","note":"★1999 blow-off（第3年衝刺原型）"},{"cd0":1165,"cd1":1466,"z":"H","own0":"2000-03-30","own1":"2001-01-18","note":"科網爆破（第4年頂）"}],"transitions":[{"cd":549,"own":"1998-07-23","anchor":"2026-07-23","frm":"E","to":"H","reason":"★LTCM -19%（第2年樣本；10/8 見底）","event":null},{"cd":633,"own":"1998-10-15","anchor":"2026-10-15","frm":"H","to":"E","reason":"★1999 blow-off（第3年衝刺原型）","event":null},{"cd":1165,"own":"2000-03-30","anchor":"2028-03-30","frm":"E","to":"H","reason":"科網爆破（第4年頂）","event":null}],"at_now":{"own":"1998-07-09","v":84,"z":"E"},"trough":{"date":"1998-10-08","cd":626,"year":"第2年","month":10,"note":"LTCM -19% 底","midterm_low":"1998-10-08","anchor":"2026-10-08"}},{"name":"Bush 43 I","cn":"小布殊 I","party":"R","era":"科網","tier":"B","inaug":"2001-01-20","end":"2005-01-20","election":"2000-11-07","zones":[{"cd0":-74,"cd1":633,"z":"H","own0":"2000-11-07","own1":"2002-10-08","note":"★科網熊＋911（第1–2年）；2002/10/9 見底"},{"cd0":633,"cd1":787,"z":"U","own0":"2002-10-15","own1":"2003-03-11","note":"二次探底、築底"},{"cd0":787,"cd1":1466,"z":"E","own0":"2003-03-18","own1":"2005-01-18","note":"減息＋減稅"}],"transitions":[{"cd":633,"own":"2002-10-15","anchor":"2026-10-15","frm":"H","to":"U","reason":"二次探底、築底","event":null},{"cd":787,"own":"2003-03-18","anchor":"2027-03-18","frm":"U","to":"E","reason":"減息＋減稅","event":null}],"at_now":{"own":"2002-07-09","v":10,"z":"H"},"trough":{"date":"2002-10-09","cd":627,"year":"第2年","month":10,"note":"科網熊市底","midterm_low":"2002-10-09","anchor":"2026-10-09"}},{"name":"Bush 43 II","cn":"小布殊 II","party":"R","era":"金融海嘯","tier":"B","inaug":"2005-01-20","end":"2009-01-20","election":"2004-11-02","zones":[{"cd0":-74,"cd1":997,"z":"E","own0":"2004-11-07","own1":"2007-10-07","note":"信貸擴張末期（10/9 見頂）"},{"cd0":997,"cd1":1466,"z":"H","own0":"2007-10-14","own1":"2009-01-18","note":"★信用危機展開（第3–4年例外#3）"}],"transitions":[{"cd":997,"own":"2007-10-14","anchor":"2027-10-14","frm":"E","to":"H","reason":"★信用危機展開（第3–4年例外#3）","event":null}],"at_now":{"own":"2006-07-09","v":84,"z":"E"},"trough":{"date":"2008-11-20","cd":1400,"year":"第4年","month":11,"note":"雷曼後任內低點（真正底 2009-03-09 落在下任）","midterm_low":null,"anchor":"2028-11-20"}},{"name":"Obama I","cn":"奧巴馬 I","party":"D","era":"QE","tier":"B","inaug":"2009-01-20","end":"2013-01-20","election":"2008-11-04","zones":[{"cd0":-74,"cd1":52,"z":"H","own0":"2008-11-07","own1":"2009-03-06","note":"雷曼倒閉；系統性崩潰（小布殊 II任內）"},{"cd0":52,"cd1":465,"z":"E","own0":"2009-03-13","own1":"2010-04-23","note":"QE1 大反彈"},{"cd0":465,"cd1":591,"z":"U","own0":"2010-04-30","own1":"2010-08-27","note":"QE 空窗＋閃崩（2010/7 見底＝中期年樣本）"},{"cd0":591,"cd1":836,"z":"E","own0":"2010-09-03","own1":"2011-04-29","note":"QE2"},{"cd0":836,"cd1":990,"z":"H","own0":"2011-05-06","own1":"2011-09-30","note":"債限危機 -19%（10/3 見底）"},{"cd0":990,"cd1":1466,"z":"E","own0":"2011-10-07","own1":"2013-01-18","note":"QE3"}],"transitions":[{"cd":52,"own":"2009-03-13","anchor":"2025-03-13","frm":"H","to":"E","reason":"QE1 大反彈","event":null},{"cd":465,"own":"2010-04-30","anchor":"2026-04-30","frm":"E","to":"U","reason":"QE 空窗＋閃崩（2010/7 見底＝中期年樣本）","event":null},{"cd":591,"own":"2010-09-03","anchor":"2026-09-03","frm":"U","to":"E","reason":"QE2","event":null},{"cd":836,"own":"2011-05-06","anchor":"2027-05-06","frm":"E","to":"H","reason":"債限危機 -19%（10/3 見底）","event":null},{"cd":990,"own":"2011-10-07","anchor":"2027-10-07","frm":"H","to":"E","reason":"QE3","event":null}],"at_now":{"own":"2010-07-09","v":45,"z":"U"},"trough":{"date":"2009-03-09","cd":48,"year":"第1年","month":3,"note":"金融海嘯總底","midterm_low":"2010-07-02","anchor":"2025-03-09"}},{"name":"Obama II","cn":"奧巴馬 II","party":"D","era":"QE","tier":"混合","inaug":"2013-01-20","end":"2017-01-20","election":"2012-11-06","zones":[{"cd0":-74,"cd1":857,"z":"E","own0":"2012-11-07","own1":"2015-05-20","note":"QE3 melt-up"},{"cd0":857,"cd1":1123,"z":"H","own0":"2015-05-27","own1":"2016-02-10","note":"★人幣貶＋縮表預期（第3年例外#4）；2016/2/11 見底"},{"cd0":1123,"cd1":1466,"z":"E","own0":"2016-02-17","own1":"2017-01-18","note":"QE3後低利率+脫歐放水+選後減稅預期, 教科書順風尾段"}],"transitions":[{"cd":857,"own":"2015-05-27","anchor":"2027-05-27","frm":"E","to":"H","reason":"★人幣貶＋縮表預期（第3年例外#4）；2016/2/11 見底","event":null},{"cd":1123,"own":"2016-02-17","anchor":"2028-02-17","frm":"H","to":"E","reason":"V 型修復","event":null}],"at_now":{"own":"2014-07-09","v":92,"z":"E"},"trough":{"date":"2016-02-11","cd":1117,"year":"第4年","month":2,"note":"縮表預期+人幣貶底","midterm_low":null,"anchor":"2028-02-11"}},{"name":"Trump I","cn":"特朗普 I","party":"R","era":"現代","tier":"A","inaug":"2017-01-20","end":"2021-01-20","election":"2016-11-08","zones":[{"cd0":-67,"cd1":633,"z":"E","own0":"2016-11-14","own1":"2018-10-08","note":"減稅melt-up: 盈利預期+去監管+全球同步復甦, 史上最順風段"},{"cd0":633,"cd1":661,"z":"U","own0":"2018-10-15","own1":"2018-11-05","note":""},{"cd0":661,"cd1":731,"z":"H","own0":"2018-11-12","own1":"2019-01-14","note":"Powell鷹派(距中性遠)+12月仍加息+QT自動導航, 流動性壓倒一切"},{"cd0":731,"cd1":787,"z":"U","own0":"2019-01-21","own1":"2019-03-11","note":"Powell 1/4鴿派轉向後的V型修復、方向重估"},{"cd0":787,"cd1":1151,"z":"E","own0":"2019-03-18","own1":"2020-03-09","note":"Fed三次減息+回購擴表, 第3年政治托市原型, NDX +37%"},{"cd0":1151,"cd1":1179,"z":"H","own0":"2020-03-16","own1":"2020-04-06","note":"COVID全球封鎖=外生黑天鵝, 史上最快熊市(-28%)"},{"cd0":1179,"cd1":1263,"z":"U","own0":"2020-04-13","own1":"2020-06-29","note":"無限QE+CARES Act洪水下的V型復甦, 但基本面未定"},{"cd0":1263,"cd1":1326,"z":"E","own0":"2020-07-06","own1":"2020-08-31","note":"流動性洪水+疫苗+選後藍潮, 成長股melt-up再起"},{"cd0":1326,"cd1":1389,"z":"U","own0":"2020-09-07","own1":"2020-11-02","note":"9月科技股急回調(9/2見頂後-10%)+大選前不確定性壓制"},{"cd0":1389,"cd1":1466,"z":"E","own0":"2020-11-09","own1":"2021-01-18","note":"流動性洪水+疫苗+選後藍潮, 成長股melt-up再起"}],"transitions":[{"cd":633,"own":"2018-10-15","anchor":"2026-10-15","frm":"E","to":"U","reason":"","event":"2018-10-03 Powell '距中性還很遠' 鷹派談話"},{"cd":661,"own":"2018-11-12","anchor":"2026-11-12","frm":"U","to":"H","reason":"Powell鷹派(距中性遠)+12月仍加息+QT自動導航, 流動性壓倒一切","event":null},{"cd":731,"own":"2019-01-21","anchor":"2027-01-21","frm":"H","to":"U","reason":"Powell 1/4鴿派轉向後的V型修復、方向重估","event":"2019-01-04 Powell鴿派大轉向 '保持耐性'"},{"cd":787,"own":"2019-03-18","anchor":"2027-03-18","frm":"U","to":"E","reason":"Fed三次減息+回購擴表, 第3年政治托市原型, NDX +37%","event":null},{"cd":1151,"own":"2020-03-16","anchor":"2028-03-16","frm":"E","to":"H","reason":"COVID全球封鎖=外生黑天鵝, 史上最快熊市(-28%)","event":"2020-03-27 CARES Act 2.2萬億財政"},{"cd":1179,"own":"2020-04-13","anchor":"2028-04-13","frm":"H","to":"U","reason":"無限QE+CARES Act洪水下的V型復甦, 但基本面未定","event":"2020-03-27 CARES Act 2.2萬億財政"},{"cd":1263,"own":"2020-07-06","anchor":"2028-07-06","frm":"U","to":"E","reason":"流動性洪水+疫苗+選後藍潮, 成長股melt-up再起","event":null},{"cd":1326,"own":"2020-09-07","anchor":"2028-09-07","frm":"E","to":"U","reason":"9月科技股急回調(9/2見頂後-10%)+大選前不確定性壓制","event":null},{"cd":1389,"own":"2020-11-09","anchor":"2028-11-09","frm":"U","to":"E","reason":"流動性洪水+疫苗+選後藍潮, 成長股melt-up再起","event":"2020-11-09 輝瑞疫苗有效性公布"}],"at_now":{"own":"2018-07-09","v":76.5,"z":"E"},"trough":{"date":"2018-12-24","cd":703,"year":"第2年","month":12,"note":"加息+QT 底 -23%","midterm_low":"2018-12-24","anchor":"2026-12-24"}},{"name":"Biden","cn":"拜登","party":"D","era":"現代","tier":"A","inaug":"2021-01-20","end":"2025-01-20","election":"2020-11-03","zones":[{"cd0":-74,"cd1":388,"z":"E","own0":"2020-11-07","own1":"2022-02-05","note":"無限QE+零利率+ARP財政洪水, 投機亢奮(meme/SPAC/BTC)"},{"cd0":388,"cd1":724,"z":"H","own0":"2022-02-12","own1":"2023-01-07","note":"Fed +525bp暴力加息+QT, 四十年最快緊縮, 全年86% HARD"},{"cd0":724,"cd1":829,"z":"U","own0":"2023-01-14","own1":"2023-04-22","note":"加息尾聲的方向重估, 疊加3月SVB銀行危機"},{"cd0":829,"cd1":1466,"z":"E","own0":"2023-04-29","own1":"2025-01-18","note":"加息見頂+AI資本開支爆發(Nvidia), 第3-4年連續大牛"}],"transitions":[{"cd":388,"own":"2022-02-12","anchor":"2026-02-12","frm":"E","to":"H","reason":"Fed +525bp暴力加息+QT, 四十年最快緊縮, 全年86% HARD","event":"2022-02-24 俄羅斯全面入侵烏克蘭"},{"cd":724,"own":"2023-01-14","anchor":"2027-01-14","frm":"H","to":"U","reason":"加息尾聲的方向重估, 疊加3月SVB銀行危機","event":"2022-12-28 NDX見底 10679(中期年樣本#15)"},{"cd":829,"own":"2023-04-29","anchor":"2027-04-29","frm":"U","to":"E","reason":"加息見頂+AI資本開支爆發(Nvidia), 第3-4年連續大牛","event":"2023-05/06 債務上限僵局+解決"}],"at_now":{"own":"2022-07-09","v":19.6,"z":"H"},"trough":{"date":"2022-12-28","cd":707,"year":"第2年","month":12,"note":"NDX 加息熊市底 -35%","midterm_low":"2022-12-28","anchor":"2026-12-28"}},{"name":"Trump II","cn":"特朗普 II","party":"R","era":"現代","tier":"A","inaug":"2025-01-20","end":"2029-01-20","election":"2024-11-05","zones":[{"cd0":-74,"cd1":73,"z":"E","own0":"2024-11-07","own1":"2025-03-27","note":"加息見頂+AI資本開支爆發(Nvidia), 第3-4年連續大牛"},{"cd0":73,"cd1":101,"z":"H","own0":"2025-04-03","own1":"2025-04-24","note":"'解放日'對等關稅遠超預期=政策性黑天鵝, 4/8殺至17090"},{"cd0":101,"cd1":500,"z":"E","own0":"2025-05-01","own1":"2026-05-28","note":"關稅90天暫停+9月Fed減息+AI衝刺, 主升段 +25%至26120"},{"cd0":500,"cd1":542,"z":"U","own0":"2026-06-04","own1":"2026-07-09","note":"6/5鷹轉(NFP重定價)+新主席Warsh移除寬鬆+SOXX -10%領導受損"}],"transitions":[{"cd":73,"own":"2025-04-03","anchor":"2025-04-03","frm":"E","to":"H","reason":"'解放日'對等關稅遠超預期=政策性黑天鵝, 4/8殺至17090","event":"2025-04-02 '解放日' Liberation Day 對等關稅"},{"cd":101,"own":"2025-05-01","anchor":"2025-05-01","frm":"H","to":"E","reason":"關稅90天暫停+9月Fed減息+AI衝刺, 主升段 +25%至26120","event":"2025-05→2025-10 關稅暫停→AI衝刺主升段"},{"cd":500,"own":"2026-06-04","anchor":"2026-06-04","frm":"E","to":"U","reason":"6/5鷹轉(NFP重定價)+新主席Warsh移除寬鬆+SOXX -10%領導受損","event":"2026-06-05 鷹派大轉向(NFP後重定價)"}],"at_now":{"own":"2026-07-09","v":51.9,"z":"U"},"trough":{"date":"2025-04-08","cd":78,"year":"第1年","month":4,"note":"關稅崩盤底 -23%（任期進行中）","midterm_low":null,"anchor":"2025-04-08"}}],"step":7}};/* R2 現任錨定版 — X axis = the CURRENT president's real calendar (YEAR 0 election →
+   YEAR 5 end of term). Every predecessor projected onto the same axis by cycle-day.
+   Each president is an independently expandable/collapsible card; every zone
+   transition carries its reason + major event. */
+(function () {
+  var NS = "http://www.w3.org/2000/svg";
+  var A = DATA.anchor, TERMS = A.terms, AN = A.anchor;
+  var CD0 = -90, CD1 = 1461;
+  var ZC = { E: "#2e9b6f", U: "#c99a2e", H: "#d2566c" };
+  var ZBG = { E: "rgba(62,207,142,.16)", U: "rgba(230,178,61,.15)", H: "rgba(242,107,127,.17)" };
+  var ZN = { E: "EASY", U: "UNCERTAIN", H: "HARD" };
+
+  function el(t, a) { var e = document.createElementNS(NS, t); for (var k in a) e.setAttribute(k, a[k]); return e; }
+  function tx(e, s) { e.textContent = s; return e; }
+  function X(cd, mL, iw) { return mL + (cd - CD0) / (CD1 - CD0) * iw; }
+  function fmtA(iso) { return iso.slice(0, 7).replace("-", "."); }
+
+  /* ---- shared axis furniture: year bands + milestones + now ---- */
+  function axisFurniture(svg, mL, iw, top, h, opts) {
+    opts = opts || {};
+    A.yearbands.forEach(function (b, i) {
+      var x1 = X(Math.max(b.cd0, CD0), mL, iw), x2 = X(b.cd1, mL, iw);
+      if (i % 2 === 0) svg.appendChild(el("rect", { x: x1, y: top, width: x2 - x1, height: h, fill: "rgba(255,255,255,.028)" }));
+      if (opts.bandLabels && x2 - x1 > 40)
+        svg.appendChild(tx(el("text", { x: (x1 + x2) / 2, y: top + h + 14, "text-anchor": "middle",
+          fill: "var(--muted)", "font-size": "9.5", "font-weight": "700" }), b.lab));
+    });
+    A.milestones.forEach(function (m, i) {
+      var x = X(m.cd, mL, iw);
+      svg.appendChild(el("line", { x1: x, y1: top, x2: x, y2: top + h,
+        stroke: m.cd === 0 ? "rgba(255,255,255,.45)" : "rgba(255,255,255,.2)",
+        "stroke-width": m.cd === 0 ? 1.3 : 1, "stroke-dasharray": m.cd === 0 ? "" : "3 4" }));
+      if (opts.msLabels) {
+        var y = top - 24 + (i % 2) * 12;
+        var anc = i === 0 ? "start" : (i === A.milestones.length - 1 ? "end" : "middle");
+        var lb = el("text", { x: x, y: y, "text-anchor": anc, fill: "#c3d2e8", "font-size": "9.5", "font-weight": "700" });
+        tx(lb, m.label);
+        var ttl = el("title"); ttl.textContent = m.date + " " + m.note; lb.appendChild(ttl);
+        svg.appendChild(lb);
+      }
+    });
+    // now
+    var xn = X(A.anchor.cd_now, mL, iw);
+    svg.appendChild(el("line", { x1: xn, y1: top - (opts.msLabels ? 2 : 0), x2: xn, y2: top + h,
+      stroke: "#7fd4ff", "stroke-width": 1.4 }));
+    if (opts.nowLabel) {
+      svg.appendChild(tx(el("text", { x: xn + 5, y: top + 11, fill: "#7fd4ff", "font-size": "9.5", "font-weight": "800" }),
+        "現在 " + AN.now));
+    }
+  }
+
+  /* ---- zone strip + numbered transition flags for one term ---- */
+  function drawStrip(host, T, big) {
+    host.innerHTML = "";
+    var W = 1000, RH = big ? 34 : 16;
+    var mL = 8, mR = 8, mT = big ? 34 : 4, mB = big ? 24 : 6;
+    var H = mT + RH + mB, iw = W - mL - mR;
+    var svg = el("svg", { viewBox: "0 0 " + W + " " + H, preserveAspectRatio: "none", role: "img",
+      "aria-label": T.cn + " 資金區分段（對標現任時間軸）" });
+    axisFurniture(svg, mL, iw, mT, RH, { msLabels: big, bandLabels: big, nowLabel: false });
+    T.zones.forEach(function (z) {
+      var x1 = X(Math.max(z.cd0, CD0), mL, iw), x2 = X(Math.min(z.cd1, CD1), mL, iw);
+      var r = el("rect", { x: x1, y: mT, width: Math.max(1, x2 - x1), height: RH,
+        fill: ZC[z.z], opacity: T.tier === "B" ? .8 : 1, rx: 2 });
+      var ttl = el("title");
+      ttl.textContent = ZN[z.z] + "  " + z.own0 + " → " + z.own1 + "\n" + (z.note || "");
+      r.appendChild(ttl);
+      svg.appendChild(r);
+    });
+    // now line above the zones
+    var xn = X(A.anchor.cd_now, mL, iw);
+    svg.appendChild(el("line", { x1: xn, y1: mT - 2, x2: xn, y2: mT + RH + 2, stroke: "#7fd4ff", "stroke-width": 1.4 }));
+    // trough marker
+    if (T.trough && T.trough.cd >= CD0 && T.trough.cd <= CD1) {
+      var xt = X(T.trough.cd, mL, iw);
+      svg.appendChild(el("path", { d: "M" + (xt - 4) + " " + (mT + RH + 2) + "l4 5.4l4-5.4z",
+        fill: T.trough.midterm_low ? "#ffd479" : "#fff" }));
+    }
+    // numbered transition flags
+    if (big) T.transitions.forEach(function (t, i) {
+      var x = X(t.cd, mL, iw);
+      svg.appendChild(el("line", { x1: x, y1: mT - 8, x2: x, y2: mT + RH, stroke: "#fff", "stroke-width": 1, opacity: .65 }));
+      var c = el("circle", { cx: x, cy: mT - 14, r: 8, fill: ZC[t.to], stroke: "#0b111b", "stroke-width": 1.4 });
+      var ttl = el("title");
+      ttl.textContent = "#" + (i + 1) + "  " + t.own + "  " + ZN[t.frm] + "→" + ZN[t.to] + "\n" + (t.reason || "") + (t.event ? "\n事件: " + t.event : "");
+      c.appendChild(ttl); svg.appendChild(c);
+      svg.appendChild(tx(el("text", { x: x, y: mT - 10.6, "text-anchor": "middle", fill: "#0b111b",
+        "font-size": "9", "font-weight": "800" }), i + 1));
+    });
+    host.appendChild(svg);
+  }
+
+  /* ---- transitions table ---- */
+  function transTable(T) {
+    if (!T.transitions.length)
+      return '<p class="muted" style="margin:8px 0 0">任內無制度級轉區（全程 ' + ZN[T.zones[0].z] + '）。</p>';
+    var rows = T.transitions.map(function (t, i) {
+      return '<tr><td class="am-num"><span class="am-flag" style="background:' + ZC[t.to] + '">' + (i + 1) + '</span></td>' +
+        '<td class="mono">' + t.own + '</td>' +
+        '<td class="mono am-anchor-d">' + fmtA(t.anchor) + '</td>' +
+        '<td><span class="zbadge ' + (t.frm === "E" ? "easy" : t.frm === "U" ? "unc" : "hard") + '">' + ZN[t.frm] + '</span>' +
+        '<span class="am-arrow">→</span>' +
+        '<span class="zbadge ' + (t.to === "E" ? "easy" : t.to === "U" ? "unc" : "hard") + '">' + ZN[t.to] + '</span></td>' +
+        '<td class="am-reason">' + (t.reason || "—") + (t.event ? '<div class="am-ev">⚡ ' + t.event + '</div>' : "") + '</td></tr>';
+    }).join("");
+    return '<div class="pm-wrap"><table class="am-tt"><thead><tr><th>#</th><th>自家日期</th><th>對標現任</th><th>轉區</th><th>主因與大事件</th></tr></thead><tbody>' + rows + '</tbody></table></div>';
+  }
+
+  /* ---- at-now chip ---- */
+  function nowChip(T) {
+    if (!T.at_now) return '<span class="am-chip am-chip-na">同位無數據</span>';
+    var z = T.at_now.z;
+    return '<span class="am-chip" style="background:' + ZBG[z] + ';color:' + ZC[z] + ';border-color:' + ZC[z] + '">' +
+      '同位 ' + T.at_now.own.slice(0, 7).replace("-", ".") + ' · ' + ZN[z] + ' ' + Math.round(T.at_now.v) + '</span>';
+  }
+
+  /* ---- master: the anchor president on his real calendar ---- */
+  function drawMaster() {
+    var host = document.getElementById("am-master"); if (!host) return;
+    host.innerHTML = "";
+    var T = TERMS.filter(function (t) { return t.name === AN.name; })[0];
+    var W = 1000, H = 330, mL = 44, mR = 10, mT = 46, mB = 40;
+    var iw = W - mL - mR, ih = H - mT - mB - 26, stripY = mT + ih + 8;
+    var Y = function (v) { return mT + ih - (v / 100) * ih; };
+    var svg = el("svg", { viewBox: "0 0 " + W + " " + H, role: "img",
+      "aria-label": "現任總統的真實時間軸與 Easy/Hard 指數" });
+    axisFurniture(svg, mL, iw, mT, ih + 34, { msLabels: true, bandLabels: true, nowLabel: true });
+    // zone reference bands behind the line
+    [[70, 100, "E"], [40, 70, "U"], [0, 40, "H"]].forEach(function (b) {
+      svg.appendChild(el("rect", { x: mL, y: Y(b[1]), width: iw, height: Y(b[0]) - Y(b[1]), fill: ZBG[b[2]], opacity: .5 }));
+    });
+    [0, 40, 70, 100].forEach(function (v) {
+      svg.appendChild(tx(el("text", { x: mL - 7, y: Y(v) + 4, "text-anchor": "end", fill: "var(--muted)", "font-size": "9.5" }), v));
+      svg.appendChild(el("line", { x1: mL, y1: Y(v), x2: mL + iw, y2: Y(v), stroke: "rgba(255,255,255,.14)", "stroke-width": .8, "stroke-dasharray": "4 4" }));
+    });
+    // daily smoothed index line
+    var pts = A.master;
+    if (pts.length) {
+      var d = pts.map(function (p, i) { return (i ? "L" : "M") + X(p.cd, mL, iw).toFixed(1) + " " + Y(p.sm).toFixed(1); }).join("");
+      svg.appendChild(el("path", { d: d, fill: "none", stroke: "#eaf1fb", "stroke-width": 2, "stroke-linejoin": "round" }));
+      var last = pts[pts.length - 1];
+      svg.appendChild(el("circle", { cx: X(last.cd, mL, iw), cy: Y(last.sm), r: 3.6, fill: "#7fd4ff", stroke: "#0b111b", "stroke-width": 1.4 }));
+      svg.appendChild(tx(el("text", { x: X(last.cd, mL, iw) + 7, y: Y(last.sm) + 4, fill: "#7fd4ff", "font-size": "10.5", "font-weight": "800" }),
+        Math.round(last.sm) + " " + ZN[last.z]));
+    }
+    // zone strip under the line
+    T.zones.forEach(function (z) {
+      var x1 = X(Math.max(z.cd0, CD0), mL, iw), x2 = X(Math.min(z.cd1, CD1), mL, iw);
+      var r = el("rect", { x: x1, y: stripY, width: Math.max(1, x2 - x1), height: 14, fill: ZC[z.z], rx: 2 });
+      var ttl = el("title"); ttl.textContent = ZN[z.z] + "  " + z.own0 + " → " + z.own1 + "\n" + (z.note || "");
+      r.appendChild(ttl); svg.appendChild(r);
+    });
+    // remaining-term hatch (future)
+    var xn = X(A.anchor.cd_now, mL, iw);
+    svg.appendChild(el("rect", { x: xn, y: stripY, width: X(CD1, mL, iw) - xn, height: 14, fill: "rgba(255,255,255,.05)", rx: 2 }));
+    svg.appendChild(tx(el("text", { x: (xn + X(CD1, mL, iw)) / 2, y: stripY + 11, "text-anchor": "middle",
+      fill: "var(--muted)", "font-size": "9" }), "未來（未有數據）"));
+    // numbered flags on master
+    T.transitions.forEach(function (t, i) {
+      var x = X(t.cd, mL, iw);
+      var c = el("circle", { cx: x, cy: stripY - 8, r: 8, fill: ZC[t.to], stroke: "#0b111b", "stroke-width": 1.4 });
+      var ttl = el("title");
+      ttl.textContent = "#" + (i + 1) + "  " + t.own + "  " + ZN[t.frm] + "→" + ZN[t.to] + "\n" + (t.reason || "") + (t.event ? "\n事件: " + t.event : "");
+      c.appendChild(ttl); svg.appendChild(c);
+      svg.appendChild(tx(el("text", { x: x, y: stripY - 4.6, "text-anchor": "middle", fill: "#0b111b", "font-size": "9", "font-weight": "800" }), i + 1));
+      svg.appendChild(el("line", { x1: x, y1: stripY, x2: x, y2: stripY + 14, stroke: "#fff", "stroke-width": 1, opacity: .7 }));
+    });
+    host.appendChild(svg);
+    var tt = document.getElementById("am-master-tt");
+    if (tt) tt.innerHTML = transTable(T);
+  }
+
+  /* ---- predecessor cards (newest first), expandable ---- */
+  function buildCards() {
+    var host = document.getElementById("am-cards"); if (!host) return;
+    host.innerHTML = "";
+    TERMS.slice().reverse().forEach(function (T) {
+      if (T.name === AN.name) return;
+      var det = document.createElement("details");
+      det.className = "am-card";
+      var tierCls = T.tier === "A" ? "A" : (T.tier === "B" ? "B" : "M");
+      det.innerHTML =
+        '<summary class="am-sum">' +
+        '<span class="am-chev">▸</span>' +
+        '<span class="am-name">' + T.cn + '<small>' + T.inaug.slice(0, 4) + '–' + T.end.slice(0, 4) + ' · ' + T.era + '</small></span>' +
+        '<span class="sm-t sm-t-' + tierCls + '">' + T.tier + '</span>' +
+        '<span class="am-ministrip"></span>' +
+        nowChip(T) +
+        '<span class="am-ntr">' + T.transitions.length + ' 次轉區</span>' +
+        '</summary>' +
+        '<div class="am-body">' +
+        '<div class="am-bigstrip"></div>' +
+        '<div class="am-tt-wrap"></div>' +
+        (T.trough ? '<p class="am-trough">▾ 任內大底 <b class="mono">' + T.trough.date + '</b>（' + T.trough.year + '，對標現任時間 <b class="mono">' + fmtA(T.trough.anchor) + '</b>）' + (T.trough.midterm_low ? ' <span class="cov-b">★中期年樣本</span>' : '') + ' — ' + T.trough.note + '</p>' : '') +
+        '</div>';
+      host.appendChild(det);
+      drawStrip(det.querySelector(".am-ministrip"), T, false);
+      det.addEventListener("toggle", function () {
+        if (det.open && !det.dataset.drawn) {
+          drawStrip(det.querySelector(".am-bigstrip"), T, true);
+          det.querySelector(".am-tt-wrap").innerHTML = transTable(T);
+          det.dataset.drawn = "1";
+        }
+      });
+    });
+  }
+
+  var ea = document.getElementById("am-expand-all"), ca = document.getElementById("am-collapse-all");
+  if (ea) ea.addEventListener("click", function () {
+    document.querySelectorAll(".am-card").forEach(function (d) { d.open = true; });
+  });
+  if (ca) ca.addEventListener("click", function () {
+    document.querySelectorAll(".am-card").forEach(function (d) { d.open = false; });
+  });
+
+  drawMaster();
+  buildCards();
+})();
+</script>
+</body></html>

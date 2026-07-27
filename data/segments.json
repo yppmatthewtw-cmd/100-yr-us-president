@@ -1,0 +1,250 @@
+{
+ "Obama II": [
+  {
+   "zone": "EASY",
+   "start": "2016-07-08",
+   "end": "2017-01-19",
+   "days": 135,
+   "ndx_start": 4528.36,
+   "ndx_end": 5051.17
+  }
+ ],
+ "Trump I": [
+  {
+   "zone": "EASY",
+   "start": "2017-01-20",
+   "end": "2018-03-21",
+   "days": 294,
+   "ndx_start": 5063.2,
+   "ndx_end": 6853.45
+  },
+  {
+   "zone": "UNCERTAIN",
+   "start": "2018-03-22",
+   "end": "2018-04-11",
+   "days": 14,
+   "ndx_start": 6682.26,
+   "ndx_end": 6583.44
+  },
+  {
+   "zone": "EASY",
+   "start": "2018-04-12",
+   "end": "2018-10-09",
+   "days": 126,
+   "ndx_start": 6656.26,
+   "ndx_end": 7371.62
+  },
+  {
+   "zone": "UNCERTAIN",
+   "start": "2018-10-10",
+   "end": "2018-11-09",
+   "days": 23,
+   "ndx_start": 7044.5,
+   "ndx_end": 7039.15
+  },
+  {
+   "zone": "HARD",
+   "start": "2018-11-12",
+   "end": "2019-01-15",
+   "days": 43,
+   "ndx_start": 6829.1,
+   "ndx_end": 6669.64
+  },
+  {
+   "zone": "UNCERTAIN",
+   "start": "2019-01-16",
+   "end": "2019-03-11",
+   "days": 37,
+   "ndx_start": 6668.56,
+   "ndx_end": 7164.02
+  },
+  {
+   "zone": "EASY",
+   "start": "2019-03-12",
+   "end": "2019-05-22",
+   "days": 51,
+   "ndx_start": 7201.28,
+   "ndx_end": 7420.66
+  },
+  {
+   "zone": "UNCERTAIN",
+   "start": "2019-05-23",
+   "end": "2019-06-06",
+   "days": 10,
+   "ndx_start": 7307.93,
+   "ndx_end": 7275.93
+  },
+  {
+   "zone": "EASY",
+   "start": "2019-06-07",
+   "end": "2020-02-21",
+   "days": 179,
+   "ndx_start": 7417.29,
+   "ndx_end": 9446.69
+  },
+  {
+   "zone": "UNCERTAIN",
+   "start": "2020-02-24",
+   "end": "2020-03-10",
+   "days": 12,
+   "ndx_start": 9079.63,
+   "ndx_end": 8372.27
+  },
+  {
+   "zone": "HARD",
+   "start": "2020-03-11",
+   "end": "2020-04-07",
+   "days": 20,
+   "ndx_start": 8006.12,
+   "ndx_end": 8049.31
+  },
+  {
+   "zone": "UNCERTAIN",
+   "start": "2020-04-08",
+   "end": "2020-07-02",
+   "days": 60,
+   "ndx_start": 8229.54,
+   "ndx_end": 10341.89
+  },
+  {
+   "zone": "EASY",
+   "start": "2020-07-06",
+   "end": "2020-09-02",
+   "days": 43,
+   "ndx_start": 10604.06,
+   "ndx_end": 12420.54
+  },
+  {
+   "zone": "UNCERTAIN",
+   "start": "2020-09-03",
+   "end": "2020-11-05",
+   "days": 45,
+   "ndx_start": 11771.37,
+   "ndx_end": 12078.07
+  },
+  {
+   "zone": "EASY",
+   "start": "2020-11-06",
+   "end": "2021-01-19",
+   "days": 49,
+   "ndx_start": 12091.35,
+   "ndx_end": 12996.54
+  }
+ ],
+ "Biden": [
+  {
+   "zone": "EASY",
+   "start": "2021-01-20",
+   "end": "2022-02-10",
+   "days": 269,
+   "ndx_start": 13296.45,
+   "ndx_end": 14705.64
+  },
+  {
+   "zone": "HARD",
+   "start": "2022-02-11",
+   "end": "2022-03-17",
+   "days": 24,
+   "ndx_start": 14253.84,
+   "ndx_end": 14118.6
+  },
+  {
+   "zone": "UNCERTAIN",
+   "start": "2022-03-18",
+   "end": "2022-04-04",
+   "days": 12,
+   "ndx_start": 14420.08,
+   "ndx_end": 15159.58
+  },
+  {
+   "zone": "HARD",
+   "start": "2022-04-05",
+   "end": "2023-01-10",
+   "days": 193,
+   "ndx_start": 14820.64,
+   "ndx_end": 11205.78
+  },
+  {
+   "zone": "UNCERTAIN",
+   "start": "2023-01-11",
+   "end": "2023-04-26",
+   "days": 73,
+   "ndx_start": 11402.52,
+   "ndx_end": 12806.48
+  },
+  {
+   "zone": "EASY",
+   "start": "2023-04-27",
+   "end": "2023-10-18",
+   "days": 121,
+   "ndx_start": 13160.03,
+   "ndx_end": 14909.26
+  },
+  {
+   "zone": "UNCERTAIN",
+   "start": "2023-10-19",
+   "end": "2023-11-01",
+   "days": 10,
+   "ndx_start": 14783.13,
+   "ndx_end": 14664.91
+  },
+  {
+   "zone": "EASY",
+   "start": "2023-11-02",
+   "end": "2025-01-17",
+   "days": 303,
+   "ndx_start": 14919.55,
+   "ndx_end": 21441.16
+  }
+ ],
+ "Trump II": [
+  {
+   "zone": "EASY",
+   "start": "2025-01-21",
+   "end": "2025-03-28",
+   "days": 48,
+   "ndx_start": 21566.51,
+   "ndx_end": 19281.4
+  },
+  {
+   "zone": "HARD",
+   "start": "2025-03-31",
+   "end": "2025-04-30",
+   "days": 22,
+   "ndx_start": 19278.45,
+   "ndx_end": 19571.02
+  },
+  {
+   "zone": "EASY",
+   "start": "2025-05-01",
+   "end": "2026-03-17",
+   "days": 220,
+   "ndx_start": 19786.71,
+   "ndx_end": 24780.42
+  },
+  {
+   "zone": "UNCERTAIN",
+   "start": "2026-03-18",
+   "end": "2026-04-07",
+   "days": 14,
+   "ndx_start": 24425.09,
+   "ndx_end": 24202.37
+  },
+  {
+   "zone": "EASY",
+   "start": "2026-04-08",
+   "end": "2026-06-03",
+   "days": 40,
+   "ndx_start": 24903.17,
+   "ndx_end": 30571.24
+  },
+  {
+   "zone": "UNCERTAIN",
+   "start": "2026-06-04",
+   "end": "2026-07-10",
+   "days": 25,
+   "ndx_start": 30407.81,
+   "ndx_end": 29825.11
+  }
+ ]
+}

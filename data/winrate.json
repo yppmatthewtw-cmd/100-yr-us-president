@@ -1,0 +1,173 @@
+{
+ "sourceA_R1_cited": {
+  "第1年 就職年": {
+   "winrate": 0.58,
+   "avg_ret": "+7%",
+   "note": "1950後樣本"
+  },
+  "第2年 中期選舉年": {
+   "winrate": 0.58,
+   "avg_ret": "+5%（四年最弱）",
+   "note": "年內平均最大回撤~-17%，15次大底落於此年"
+  },
+  "第3年 大選前年": {
+   "winrate": 0.95,
+   "avg_ret": "+16.8%（四年最強）",
+   "note": "1950後19屆僅1次輕微下跌(2015)"
+  },
+  "第4年 大選年": {
+   "winrate": 0.75,
+   "avg_ret": "+7%",
+   "note": "前高後震，大頂常見(1972尾/2000/2007)"
+  },
+  "黃金3季 Y2Q4→Y3Q2": {
+   "winrate": 0.9,
+   "avg_ret": "+20%",
+   "note": "16季週期中最肥一段"
+  },
+  "中期年低點→其後12個月": {
+   "winrate": 1.0,
+   "avg_ret": "+32%",
+   "note": "1950後從未失手(15/15)"
+  }
+ },
+ "sourceB1_phase_easy_probability_26terms": [
+  {
+   "period": "第3年 Year 3",
+   "desc": "第2年終→第3年終",
+   "winrate": 0.768,
+   "n_terms": 25,
+   "n_days": 1300
+  },
+  {
+   "period": "第2年下 Y2 H2",
+   "desc": "中期選舉→第2年終",
+   "winrate": 0.728,
+   "n_terms": 25,
+   "n_days": 250
+  },
+  {
+   "period": "第4年 Year 4",
+   "desc": "第3年終→大選",
+   "winrate": 0.6688,
+   "n_terms": 25,
+   "n_days": 1050
+  },
+  {
+   "period": "交接期 Transition",
+   "desc": "當選→就職",
+   "winrate": 0.6442,
+   "n_terms": 25,
+   "n_days": 284
+  },
+  {
+   "period": "跛腳期 Lame Duck",
+   "desc": "大選→卸任",
+   "winrate": 0.632,
+   "n_terms": 25,
+   "n_days": 269
+  },
+  {
+   "period": "第1年 Year 1",
+   "desc": "第100日→第1年終",
+   "winrate": 0.6123,
+   "n_terms": 26,
+   "n_days": 988
+  },
+  {
+   "period": "第2年上 Y2 H1",
+   "desc": "第1年終→中期選舉",
+   "winrate": 0.5511,
+   "n_terms": 26,
+   "n_days": 1075
+  },
+  {
+   "period": "首100日 First 100d",
+   "desc": "就職→第100日",
+   "winrate": 0.5223,
+   "n_terms": 26,
+   "n_days": 364
+  }
+ ],
+ "sourceB2_real_ndx_monthly_winrate": {
+  "by_cycle_year": [
+   {
+    "period": "第1年",
+    "winrate": 0.6944,
+    "n_months": 36,
+    "avg_ret": 1.6
+   },
+   {
+    "period": "第2年",
+    "winrate": 0.4667,
+    "n_months": 30,
+    "avg_ret": -0.1
+   },
+   {
+    "period": "第3年",
+    "winrate": 0.75,
+    "n_months": 24,
+    "avg_ret": 2.6
+   },
+   {
+    "period": "第4年",
+    "winrate": 0.7097,
+    "n_months": 31,
+    "avg_ret": 2.4
+   }
+  ],
+  "by_phase": [
+   {
+    "period": "跛腳期 Lame Duck",
+    "desc": "大選→卸任",
+    "winrate": 0.8889,
+    "n_months": 9,
+    "avg_ret": 3.3
+   },
+   {
+    "period": "第3年 Year 3",
+    "desc": "第2年終→第3年終",
+    "winrate": 0.75,
+    "n_months": 24,
+    "avg_ret": 2.6
+   },
+   {
+    "period": "第1年 Year 1",
+    "desc": "第100日→第1年終",
+    "winrate": 0.7407,
+    "n_months": 27,
+    "avg_ret": 2.1
+   },
+   {
+    "period": "第4年 Year 4",
+    "desc": "第3年終→大選",
+    "winrate": 0.6364,
+    "n_months": 22,
+    "avg_ret": 2.1
+   },
+   {
+    "period": "首100日 First 100d",
+    "desc": "就職→第100日",
+    "winrate": 0.5556,
+    "n_months": 9,
+    "avg_ret": 0.0
+   },
+   {
+    "period": "第2年下 Y2 H2",
+    "desc": "中期選舉→第2年終",
+    "winrate": 0.5,
+    "n_months": 6,
+    "avg_ret": 0.9
+   },
+   {
+    "period": "第2年上 Y2 H1",
+    "desc": "第1年終→中期選舉",
+    "winrate": 0.4583,
+    "n_months": 24,
+    "avg_ret": -0.4
+   }
+  ],
+  "n_months_total": 121,
+  "window": "2016-07 → 2026-07 (Obama II tail + Trump I + Biden + Trump II)"
+ }
+}
